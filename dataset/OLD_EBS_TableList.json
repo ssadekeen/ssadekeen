@@ -1,0 +1,13 @@
+{
+	"name": "OLD_EBS_TableList",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "EBS_12_1_3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

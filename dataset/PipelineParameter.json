@@ -1,0 +1,16 @@
+{
+	"name": "PipelineParameter",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OnPremToAzureDWH",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "TestDataSets_TobeDeleted_Later"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,13 @@
+{
+	"name": "POSTableList",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "POS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

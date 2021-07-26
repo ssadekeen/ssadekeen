@@ -1,0 +1,299 @@
+{
+	"name": "FirstTest",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "WHILASP",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1",
+				"state": {
+					"3fe4a60c-dd8b-48f6-a51d-5927b676770a": {
+						"type": "Synapse.DataFrame",
+						"sync_state": {
+							"table": {
+								"rows": [
+									{
+										"Id": "a0b5771b-06f4-499c-a4a1-0400daa97e1e",
+										"PhoneNumberConfirmed": false,
+										"UserName": "01300288527",
+										"AccessFailedCount": 0,
+										"PhoneNumber": "01300288527",
+										"Email": "01300288527@pqstec.com",
+										"SecurityStamp": "82517b37-c270-4ee3-9cab-1d11c4b705a7",
+										"IsEnabled": false,
+										"TwoFactorEnabled": false,
+										"EmailConfirmed": false,
+										"PasswordHash": "AELrOGPtXoAPlI6O/BePVKMnu9dotlCQsDw40d28aXWsZRjLlXmvIBNNz7lgUO5FVA==",
+										"UserId": 9862,
+										"IsManager": false,
+										"LockoutEnabled": true
+									},
+									{
+										"Id": "a0b960e3-6e83-4286-82d2-0e2be766b60d",
+										"PhoneNumberConfirmed": true,
+										"UserName": "01959990449",
+										"AccessFailedCount": 0,
+										"PhoneNumber": "01959990449",
+										"Email": "01959990449@pqstec.com",
+										"SecurityStamp": "33cc1ec8-c855-467b-b495-aefe2e883b09",
+										"IsEnabled": false,
+										"TwoFactorEnabled": false,
+										"EmailConfirmed": false,
+										"PasswordHash": "AC+PHTKlzdWk7a/uNWFWgcLRKUcV5NOnRaGdGSChFDhE0vDq72xoFd9+s1CCJ1zuLg==",
+										"UserId": 7864,
+										"IsManager": false,
+										"LockoutEnabled": true
+									},
+									{
+										"Id": "a0bdcd7e-5e0f-477d-a819-e2b9f8c39b1e",
+										"PhoneNumberConfirmed": true,
+										"UserName": "01975776704",
+										"AccessFailedCount": 0,
+										"PhoneNumber": "01975776704",
+										"Email": "01975776704@pqstec.com",
+										"SecurityStamp": "7e987919-960c-490b-b227-d5993cd7dc01",
+										"IsEnabled": false,
+										"TwoFactorEnabled": false,
+										"EmailConfirmed": false,
+										"PasswordHash": "AJCqKl6IVzksKNSUi5TXvRS9w9k0jgQeqabunHJnUnvDYcKpVX4ykfpoS0lSHMcC3A==",
+										"UserId": 3236,
+										"IsManager": false,
+										"LockoutEnabled": true
+									},
+									{
+										"Id": "a0c05f33-75a5-4b29-a425-90b4724a40e2",
+										"PhoneNumberConfirmed": true,
+										"UserName": "01725581315",
+										"AccessFailedCount": 0,
+										"PhoneNumber": "01725581315",
+										"Email": "01725581315@pqstec.com",
+										"SecurityStamp": "475e8541-9cfa-47db-a535-861e189d8d88",
+										"IsEnabled": false,
+										"TwoFactorEnabled": false,
+										"DealerTypeId": 1,
+										"EmailConfirmed": false,
+										"DealerName": "Talma faridpur",
+										"PasswordHash": "ANfSZBaQT9lcqJPzyo6q3C/a2uRxTejhVG8x4qdnG5iHn9J7NNR09U39fR1dRckSpQ==",
+										"UserId": 5584,
+										"IsManager": false,
+										"LockoutEnabled": true,
+										"DealerCode": "0030"
+									},
+									{
+										"Id": "a0c2f3f7-c6c3-4147-bb63-17a2a455723b",
+										"PhoneNumberConfirmed": true,
+										"UserName": "01924048393",
+										"AccessFailedCount": 0,
+										"PhoneNumber": "01924048393",
+										"Email": "01924048393@pqstec.com",
+										"SecurityStamp": "3b9ee45d-f8ef-4f96-be78-33b5cb1fa411",
+										"IsEnabled": false,
+										"TwoFactorEnabled": false,
+										"DealerTypeId": 2,
+										"EmailConfirmed": false,
+										"DealerName": "Family electronics ",
+										"PasswordHash": "AOnd1qBk5NaiMDQYofNywhXs/5NEg0nJawrcdGS1hzSqSpVW3pBD0sIn3T3s5PdIRg==",
+										"UserId": 18264,
+										"IsManager": false,
+										"LockoutEnabled": true,
+										"DealerCode": "1082"
+									},
+									{
+										"Id": "a0c70558-a6e1-43a0-9938-00f3a0f7798f",
+										"PhoneNumberConfirmed": true,
+										"UserName": "01779125575",
+										"AccessFailedCount": 0,
+										"PhoneNumber": "01779125575",
+										"Email": "01779125575@pqstec.com",
+										"SecurityStamp": "9830af15-a343-4a29-b9b4-b4d9a7337c32",
+										"IsEnabled": false,
+										"TwoFactorEnabled": false,
+										"DealerTypeId": 3,
+										"EmailConfirmed": false,
+										"DealerName": "M/s Maya Traders",
+										"PasswordHash": "ACGTtl+RWFLJ1RGmkjPk1fZlyOCPY1af++IHZZRcom4ZL/4FwhBu34ckUhgZbmIjPQ==",
+										"UserId": 18306,
+										"IsManager": false,
+										"LockoutEnabled": true
+									},
+									{
+										"Id": "a0c76e3b-c365-4be7-a764-1a2b9789cc74",
+										"PhoneNumberConfirmed": true,
+										"UserName": "01928410083",
+										"AccessFailedCount": 0,
+										"PhoneNumber": "01928410083",
+										"Email": "01928410083@pqstec.com",
+										"SecurityStamp": "d094a54a-2149-40fa-988e-080098fe40f4",
+										"IsEnabled": false,
+										"TwoFactorEnabled": false,
+										"DealerTypeId": 1,
+										"EmailConfirmed": false,
+										"DealerName": "Bhai Bhai Electronics ",
+										"PasswordHash": "APhoWWEsHN1rtn4X57s/uLWJ7n3XoN3bbdz6NhT5jB3nXNpIUm8UCbX+DVZFT5ro6w==",
+										"UserId": 14715,
+										"IsManager": false,
+										"LockoutEnabled": true,
+										"DealerCode": "1338"
+									},
+									{
+										"Id": "a0ca942b-9585-4560-ba48-d77009fb0fa0",
+										"PhoneNumberConfirmed": true,
+										"UserName": "01988567650",
+										"AccessFailedCount": 0,
+										"PhoneNumber": "01988567650",
+										"Email": "01988567650@pqstec.com",
+										"SecurityStamp": "b2498d6f-9003-4bff-941e-115332024583",
+										"IsEnabled": false,
+										"TwoFactorEnabled": false,
+										"DealerTypeId": 1,
+										"EmailConfirmed": false,
+										"DealerName": "New big bazar electronics",
+										"PasswordHash": "AO3TvP6fOpYT6PXDypYBIFKBHr1DghsYsSX1ZjOtNPmnt6X3gfdqv1+o4xwiLs1dWA==",
+										"UserId": 15313,
+										"IsManager": false,
+										"LockoutEnabled": true,
+										"DealerCode": "69892"
+									},
+									{
+										"Id": "a0cab005-953e-402d-811d-966bac64fda9",
+										"PhoneNumberConfirmed": true,
+										"UserName": "01643351480",
+										"AccessFailedCount": 0,
+										"PhoneNumber": "01643351480",
+										"Email": "01643351480@pqstec.com",
+										"SecurityStamp": "332dd99b-90ac-478f-a6aa-5e1a4d966e16",
+										"IsEnabled": false,
+										"TwoFactorEnabled": false,
+										"DealerTypeId": 2,
+										"EmailConfirmed": false,
+										"DealerName": "Mitali electronic ",
+										"PasswordHash": "APES8EhEEEq35YKtkSqorGMHg1T3PLj31Fo1hmDYUvKkLdX/Eh+/lag+cEeBXd6Pmg==",
+										"UserId": 10033,
+										"IsManager": false,
+										"LockoutEnabled": true,
+										"DealerCode": "46582"
+									},
+									{
+										"Id": "a0e30572-91a1-4855-bf60-15a904b52304",
+										"PhoneNumberConfirmed": true,
+										"UserName": "01741131873",
+										"AccessFailedCount": 0,
+										"PhoneNumber": "01741131873",
+										"Email": "01741131873@pqstec.com",
+										"SecurityStamp": "4104fc37-6632-498f-ae3c-049006374c1b",
+										"IsEnabled": false,
+										"TwoFactorEnabled": false,
+										"EmailConfirmed": false,
+										"PasswordHash": "AIjR/EjHHdlFX7UhORiLOay0fD/8DjH6Ok9t57SKmnP0vme5jhqCW3oLxNqBXJEngQ==",
+										"UserId": 7775,
+										"IsManager": false,
+										"LockoutEnabled": true
+									}
+								],
+								"schema": {
+									"AccessFailedCount": "bigint",
+									"DealerCode": "string",
+									"DealerName": "string",
+									"DealerType": "string",
+									"DealerTypeId": "bigint",
+									"Email": "string",
+									"EmailConfirmed": "boolean",
+									"Id": "string",
+									"IsEnabled": "boolean",
+									"IsManager": "boolean",
+									"LockoutEnabled": "boolean",
+									"LockoutEndDateUtc": "string",
+									"PasswordHash": "string",
+									"PhoneNumber": "string",
+									"PhoneNumberConfirmed": "boolean",
+									"SecurityStamp": "string",
+									"TwoFactorEnabled": "boolean",
+									"UserId": "bigint",
+									"UserName": "string"
+								}
+							},
+							"isSummary": false,
+							"language": "scala"
+						},
+						"persist_state": {
+							"view": {
+								"type": "details",
+								"chartOptions": {
+									"chartType": "bar",
+									"aggregationType": "sum",
+									"categoryFieldKeys": [
+										"DealerCode"
+									],
+									"seriesFieldKeys": [
+										"AccessFailedCount"
+									],
+									"isStacked": false
+								}
+							}
+						}
+					}
+				}
+			},
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/5a2180f1-3f1d-46b5-880a-c82f25797121/resourceGroups/WHIL-Syapse/providers/Microsoft.Synapse/workspaces/wp01/bigDataPools/WHILASP",
+				"name": "WHILASP",
+				"type": "Spark",
+				"endpoint": "https://wp01.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/WHILASP",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "2.4",
+				"nodeCount": 3,
+				"cores": 4,
+				"memory": 28,
+				"extraHeader": null
+			}
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"microsoft": {
+						"language": "python"
+					},
+					"collapsed": false
+				},
+				"source": [
+					"%%pyspark\r\n",
+					"df = spark.read.load('abfss://whilfs@whillake.dfs.core.windows.net/dboAspNetUsers.txt', format='json')\r\n",
+					"display(df.limit(10))\r\n",
+					"\r\n",
+					"\r\n",
+					""
+				],
+				"attachments": null,
+				"execution_count": 1
+			}
+		]
+	}
+}

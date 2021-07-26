@@ -1,0 +1,32 @@
+{
+	"name": "df_usert_to_lake",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_ADSL2",
+						"type": "DatasetReference"
+					},
+					"name": "srcLake"
+				}
+			],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "DeltaLake",
+						"type": "LinkedServiceReference"
+					},
+					"name": "dstDeltaLake"
+				}
+			],
+			"transformations": [
+				{
+					"name": "AlterRow1"
+				}
+			],
+			"script": "parameters{\n\tFolderName as string,\n\tupsert_key_column as string\n}\nsource(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tlimit: 100,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet',\n\twildcardPaths:['$FolderName']) ~> srcLake\nsrcLake alterRow(upsertIf(true())) ~> AlterRow1\nAlterRow1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'delta',\n\tcontainer: 'whilfs',\n\tfolderPath: 'DeltaLake',\n\tmergeSchema: false,\n\tautoCompact: false,\n\toptimizedWrite: false,\n\tvacuum: 0,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:true,\n\tkeys:[($upsert_key_column)],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> dstDeltaLake"
+		}
+	}
+}

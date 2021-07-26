@@ -1,0 +1,66 @@
+{
+	"name": "TestCRMSourceDeltaForMerge",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CRMBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "TestDataSets_TobeDeleted_Later"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "CRM.ACL_USER_2021_07_12T16_15.parquet",
+				"folderPath": "Perquest_Files",
+				"container": "whilfs"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "ID",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "CREATED_DATE",
+				"type": "INT96"
+			},
+			{
+				"name": "MODIFIED_BY",
+				"type": "UTF8"
+			},
+			{
+				"name": "IS_ACTIVE",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "SEGMENT3",
+				"type": "UTF8"
+			},
+			{
+				"name": "CODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "NAME",
+				"type": "UTF8"
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "UTF8"
+			},
+			{
+				"name": "MODIFIED_DATE",
+				"type": "INT96"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

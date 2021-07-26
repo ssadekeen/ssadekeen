@@ -1,0 +1,271 @@
+{
+	"name": "DeltaCopy_OracleDB_w_CtrlTbl",
+	"properties": {
+		"description": "Copy new or updated rows only from oracle database using external control table",
+		"activities": [
+			{
+				"name": "LookupLastWaterMark",
+				"description": "Retrieve the last high-watermark value stored in external control table",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 1,
+					"retryIntervalInSeconds": 120,
+					"secureOutput": true,
+					"secureInput": true
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "select @{pipeline().parameters.Control_Table_Column_Name} as WatermarkValue from @{pipeline().parameters.Control_Table_Table_Name} where SchemaName = '@{pipeline().parameters.Data_Source_Schema}' AND TableName = '@{pipeline().parameters.Data_Source_Table_Name}'",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "WaterMarkTableOnPremTestSQL",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "LookupCurrentWaterMark",
+				"description": "Retrieve  the current maximum value in watermark column of source data store",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 120
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": {
+							"value": "@concat('select MAX(',pipeline().parameters.Data_Source_WaterMarkColumn, ') as NewWatermarkValue from ', pipeline().parameters.Data_Source_Schema,'.',pipeline().parameters.Data_Source_Table_Name)",
+							"type": "Expression"
+						},
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "EBSTableSet1",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": {
+								"value": "@pipeline().parameters.Data_Source_Schema",
+								"type": "Expression"
+							},
+							"table_name": {
+								"value": "@pipeline().parameters.Data_Source_Table_Name",
+								"type": "Expression"
+							}
+						}
+					}
+				}
+			},
+			{
+				"name": "DeltaCopyfromDB",
+				"description": "Copy activity to use query to filter the delta data by > last high-watermark and <= current high-watermark from source database, and then only copy the changes to the destination store.",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "LookupCurrentWaterMark",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "LookupLastWaterMark",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 2,
+					"retryIntervalInSeconds": 120
+				},
+				"userProperties": [
+					{
+						"name": "LastModifiedDate",
+						"value": "@{activity('LookupCurrentWaterMark').output.firstRow.NewWatermarkValue}"
+					},
+					{
+						"name": "Source",
+						"value": "@{pipeline().parameters.Data_Source_Table_Name}"
+					},
+					{
+						"name": "Destination",
+						"value": "@{pipeline().parameters.Data_Destination_Container}/@{pipeline().parameters.Data_Destination_Directory}/@{concat(pipeline().parameters.Data_Source_Schema,'.',pipeline().parameters.Data_Source_Table_Name,'_',formatDateTime(utcnow(),'yyyy-MM-ddTHH:mm'),'.perquest')}"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": {
+							"value": "select * from  @{pipeline().parameters.Data_Source_Schema}.@{pipeline().parameters.Data_Source_Table_Name} where @{pipeline().parameters.Data_Source_WaterMarkColumn} IS NOT NULL AND @{pipeline().parameters.Data_Source_WaterMarkColumn} > TO_Date('@{activity('LookupLastWaterMark').output.firstRow.WatermarkValue}','yyyy-mm-dd\"T\"hh24:mi:ss\".000') and  @{pipeline().parameters.Data_Source_WaterMarkColumn} <= TO_Date('@{activity('LookupCurrentWaterMark').output.firstRow.NewWatermarkValue}','yyyy-mm-dd\"T\"hh24:mi:ss\".000\"') ",
+							"type": "Expression"
+						},
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"parallelCopies": 4,
+					"enableSkipIncompatibleRow": true,
+					"validateDataConsistency": true,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "wp01-WorkspaceDefaultStorage",
+								"type": "LinkedServiceReference"
+							},
+							"path": "whilfs/PipelineLog"
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "EBSTableSet1",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": {
+								"value": "@{pipeline().parameters.Data_Source_Schema}",
+								"type": "Expression"
+							},
+							"table_name": {
+								"value": "@{pipeline().parameters.Data_Source_Table_Name}",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DeltaPerquest",
+						"type": "DatasetReference",
+						"parameters": {
+							"Data_Destination_Container": {
+								"value": "@pipeline().parameters.Data_Destination_Container",
+								"type": "Expression"
+							},
+							"Data_Destination_Directory": {
+								"value": "@pipeline().parameters.Data_Destination_Directory",
+								"type": "Expression"
+							},
+							"DestinationFileName": {
+								"value": "@concat(pipeline().parameters.Data_Source_Schema,'.',pipeline().parameters.Data_Source_Table_Name,'_',formatDateTime(utcnow(),'yyyy_MM_ddTHH_mm'),'.parquet')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "UpdateWaterMark",
+				"description": "Stored procedure activity to store the new high-watermark value into external control table for delta data loading. ",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "DeltaCopyfromDB",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30
+				},
+				"userProperties": [
+					{
+						"name": "LastUpdateDate",
+						"value": "@{activity('LookupLastWaterMark').output.firstRow.WatermarkValue}"
+					},
+					{
+						"name": "CurrentTableName",
+						"value": "@pipeline().parameters.Data_Source_Table_Name"
+					}
+				],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[update_watermark]",
+					"storedProcedureParameters": {
+						"LastModifiedtime": {
+							"value": {
+								"value": "@formatDateTime(activity('LookupCurrentWaterMark').output.firstRow.NewWatermarkValue, 'yyyy-MM-ddTHH:mm:ss')",
+								"type": "Expression"
+							},
+							"type": "DateTime"
+						},
+						"SchemaName": {
+							"value": {
+								"value": "@pipeline().parameters.Data_Source_Schema",
+								"type": "Expression"
+							},
+							"type": "String"
+						},
+						"TableName": {
+							"value": {
+								"value": "@pipeline().parameters.Data_Source_Table_Name",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "OnPremToAzureDWH",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"Data_Source_Table_Name": {
+				"type": "String"
+			},
+			"Data_Source_WaterMarkColumn": {
+				"type": "String"
+			},
+			"Data_Destination_Container": {
+				"type": "String"
+			},
+			"Data_Destination_Directory": {
+				"type": "String"
+			},
+			"Control_Table_Table_Name": {
+				"type": "String"
+			},
+			"Control_Table_Column_Name": {
+				"type": "String"
+			},
+			"Data_Source_Schema": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "ParquetFormat/DeltaCopy"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-07-15T19:32:25Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

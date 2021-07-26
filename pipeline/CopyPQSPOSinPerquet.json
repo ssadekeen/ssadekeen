@@ -1,0 +1,197 @@
+{
+	"name": "CopyPQSPOSinPerquet",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_pqspos_table",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_wwt",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "dbo.@{item().source.table}"
+								},
+								{
+									"name": "Destination",
+									"value": "whilfs/Perquest_Files/@{item().destination.fileName}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "SqlServerSource",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings",
+										"blockSizeInMB": 100
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false,
+								"enableSkipIncompatibleRow": true,
+								"validateDataConsistency": true
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_wwt",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_table": "@item().source.table"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_wwt",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_fileName": "@item().destination.fileName"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"table": "AspNetUsers"
+						},
+						"destination": {
+							"fileName": "pqspos.AspNetUsers.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "BANK_APPS_COLLECTION"
+						},
+						"destination": {
+							"fileName": "pqspos.BANK_APPS_COLLECTION.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "CustomerLoginTracks"
+						},
+						"destination": {
+							"fileName": "pqspos.CustomerLoginTracks.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "CustomerLoyalityCards"
+						},
+						"destination": {
+							"fileName": "pqspos.CustomerLoyalityCards.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "CustomerPayments"
+						},
+						"destination": {
+							"fileName": "pqspos.CustomerPayments.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "CustomerSerials"
+						},
+						"destination": {
+							"fileName": "pqspos.CustomerSerials.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "DealerProductSerials"
+						},
+						"destination": {
+							"fileName": "pqspos.DealerProductSerials.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "DEPOSITOR_BANK_INFO"
+						},
+						"destination": {
+							"fileName": "pqspos.DEPOSITOR_BANK_INFO.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "EBS_BANK_AC_INFO"
+						},
+						"destination": {
+							"fileName": "pqspos.EBS_BANK_AC_INFO.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "FinancialStatements"
+						},
+						"destination": {
+							"fileName": "pqspos.FinancialStatements.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "ProductInventorySerials"
+						},
+						"destination": {
+							"fileName": "pqspos.ProductInventorySerials.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "SellingTypes"
+						},
+						"destination": {
+							"fileName": "pqspos.SellingTypes.parquet"
+						}
+					},
+					{
+						"source": {
+							"table": "UserLogingInfoes"
+						},
+						"destination": {
+							"fileName": "pqspos.UserLogingInfoes.parquet"
+						}
+					}
+				]
+			}
+		},
+		"folder": {
+			"name": "ParquetFormat"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-07-15T19:32:32Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

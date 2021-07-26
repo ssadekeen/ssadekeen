@@ -1,0 +1,444 @@
+{
+	"name": "MTL_TRANSACTION_ACCOUNTS Peruest",
+	"properties": {
+		"folder": {
+			"name": "Noman Work"
+		},
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "WHILASP",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 10,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "10",
+				"spark.dynamicAllocation.maxExecutors": "10"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1",
+				"state": {
+					"4c8b3fbd-19ee-46f7-89fe-a0ab581dc631": {
+						"type": "Synapse.DataFrame",
+						"sync_state": {
+							"table": {
+								"rows": [
+									{
+										"PROGRAM_APPLICATION_ID": 702,
+										"PRIMARY_QUANTITY": -2000,
+										"LAST_UPDATE_LOGIN": 1199635,
+										"CONTRA_SET_ID": 1,
+										"COST_ELEMENT_ID": 1,
+										"TRANSACTION_SOURCE_TYPE_ID": 4,
+										"TRANSACTION_DATE": "2017-07-16T12:01:10Z",
+										"TRANSACTION_ID": 15717863,
+										"ORGANIZATION_ID": 101,
+										"CURRENCY_CONVERSION_RATE": -1,
+										"BASE_TRANSACTION_VALUE": -6219.42,
+										"CURRENCY_CONVERSION_DATE": "2017-07-16T00:00:00Z",
+										"PROGRAM_ID": 36119,
+										"ACCOUNTING_LINE_TYPE": 1,
+										"CREATION_DATE": "2017-07-16T12:03:16Z",
+										"PROGRAM_UPDATE_DATE": "2017-07-16T12:03:16Z",
+										"CREATED_BY": 1090,
+										"REQUEST_ID": 1412594,
+										"TRANSACTION_SOURCE_ID": 198947,
+										"RATE_OR_AMOUNT": 3.1097088527653978,
+										"REFERENCE_ACCOUNT": 24352,
+										"LAST_UPDATE_DATE": "2017-07-16T12:03:16Z",
+										"INV_SUB_LEDGER_ID": 8434448,
+										"CURRENCY_CONVERSION_TYPE": "0",
+										"INVENTORY_ITEM_ID": 15421,
+										"LAST_UPDATED_BY": 1090,
+										"BASIS_TYPE": 1
+									},
+									{
+										"PROGRAM_APPLICATION_ID": 702,
+										"PRIMARY_QUANTITY": 2000,
+										"LAST_UPDATE_LOGIN": 1199635,
+										"CONTRA_SET_ID": 1,
+										"TRANSACTION_SOURCE_TYPE_ID": 4,
+										"TRANSACTION_DATE": "2017-07-16T12:01:10Z",
+										"TRANSACTION_ID": 15717863,
+										"ORGANIZATION_ID": 101,
+										"CURRENCY_CONVERSION_RATE": -1,
+										"BASE_TRANSACTION_VALUE": 6219.42,
+										"CURRENCY_CONVERSION_DATE": "2017-07-16T00:00:00Z",
+										"PROGRAM_ID": 36119,
+										"ACCOUNTING_LINE_TYPE": 2,
+										"CREATION_DATE": "2017-07-16T12:03:16Z",
+										"PROGRAM_UPDATE_DATE": "2017-07-16T12:03:16Z",
+										"CREATED_BY": 1090,
+										"REQUEST_ID": 1412594,
+										"TRANSACTION_SOURCE_ID": 198947,
+										"RATE_OR_AMOUNT": 3.1097088527653978,
+										"REFERENCE_ACCOUNT": 31477,
+										"LAST_UPDATE_DATE": "2017-07-16T12:03:16Z",
+										"INV_SUB_LEDGER_ID": 8434450,
+										"CURRENCY_CONVERSION_TYPE": "0",
+										"INVENTORY_ITEM_ID": 15421,
+										"LAST_UPDATED_BY": 1090,
+										"BASIS_TYPE": 1
+									},
+									{
+										"PROGRAM_APPLICATION_ID": 702,
+										"PRIMARY_QUANTITY": -1000,
+										"LAST_UPDATE_LOGIN": 1199635,
+										"CONTRA_SET_ID": 1,
+										"COST_ELEMENT_ID": 1,
+										"TRANSACTION_SOURCE_TYPE_ID": 4,
+										"TRANSACTION_DATE": "2017-07-16T12:01:10Z",
+										"TRANSACTION_ID": 15717864,
+										"ORGANIZATION_ID": 101,
+										"CURRENCY_CONVERSION_RATE": -1,
+										"BASE_TRANSACTION_VALUE": -2755.92,
+										"CURRENCY_CONVERSION_DATE": "2017-07-16T00:00:00Z",
+										"PROGRAM_ID": 36119,
+										"ACCOUNTING_LINE_TYPE": 1,
+										"CREATION_DATE": "2017-07-16T12:03:16Z",
+										"PROGRAM_UPDATE_DATE": "2017-07-16T12:03:16Z",
+										"CREATED_BY": 1090,
+										"REQUEST_ID": 1412594,
+										"TRANSACTION_SOURCE_ID": 198947,
+										"RATE_OR_AMOUNT": 2.755920550710379,
+										"REFERENCE_ACCOUNT": 24352,
+										"LAST_UPDATE_DATE": "2017-07-16T12:03:16Z",
+										"INV_SUB_LEDGER_ID": 8434452,
+										"CURRENCY_CONVERSION_TYPE": "0",
+										"INVENTORY_ITEM_ID": 15423,
+										"LAST_UPDATED_BY": 1090,
+										"BASIS_TYPE": 1
+									},
+									{
+										"PROGRAM_APPLICATION_ID": 702,
+										"PRIMARY_QUANTITY": 1000,
+										"LAST_UPDATE_LOGIN": 1199635,
+										"CONTRA_SET_ID": 1,
+										"TRANSACTION_SOURCE_TYPE_ID": 4,
+										"TRANSACTION_DATE": "2017-07-16T12:01:10Z",
+										"TRANSACTION_ID": 15717864,
+										"ORGANIZATION_ID": 101,
+										"CURRENCY_CONVERSION_RATE": -1,
+										"BASE_TRANSACTION_VALUE": 2755.92,
+										"CURRENCY_CONVERSION_DATE": "2017-07-16T00:00:00Z",
+										"PROGRAM_ID": 36119,
+										"ACCOUNTING_LINE_TYPE": 2,
+										"CREATION_DATE": "2017-07-16T12:03:16Z",
+										"PROGRAM_UPDATE_DATE": "2017-07-16T12:03:16Z",
+										"CREATED_BY": 1090,
+										"REQUEST_ID": 1412594,
+										"TRANSACTION_SOURCE_ID": 198947,
+										"RATE_OR_AMOUNT": 2.755920550710379,
+										"REFERENCE_ACCOUNT": 31477,
+										"LAST_UPDATE_DATE": "2017-07-16T12:03:16Z",
+										"INV_SUB_LEDGER_ID": 8434455,
+										"CURRENCY_CONVERSION_TYPE": "0",
+										"INVENTORY_ITEM_ID": 15423,
+										"LAST_UPDATED_BY": 1090,
+										"BASIS_TYPE": 1
+									},
+									{
+										"PROGRAM_APPLICATION_ID": 702,
+										"PRIMARY_QUANTITY": -2000,
+										"LAST_UPDATE_LOGIN": 1199635,
+										"CONTRA_SET_ID": 1,
+										"COST_ELEMENT_ID": 1,
+										"TRANSACTION_SOURCE_TYPE_ID": 4,
+										"TRANSACTION_DATE": "2017-07-16T12:01:10Z",
+										"TRANSACTION_ID": 15717865,
+										"ORGANIZATION_ID": 101,
+										"CURRENCY_CONVERSION_RATE": -1,
+										"BASE_TRANSACTION_VALUE": -932.25,
+										"CURRENCY_CONVERSION_DATE": "2017-07-16T00:00:00Z",
+										"PROGRAM_ID": 36119,
+										"ACCOUNTING_LINE_TYPE": 1,
+										"CREATION_DATE": "2017-07-16T12:03:16Z",
+										"PROGRAM_UPDATE_DATE": "2017-07-16T12:03:16Z",
+										"CREATED_BY": 1090,
+										"REQUEST_ID": 1412594,
+										"TRANSACTION_SOURCE_ID": 198947,
+										"RATE_OR_AMOUNT": 0.466125,
+										"REFERENCE_ACCOUNT": 24352,
+										"LAST_UPDATE_DATE": "2017-07-16T12:03:16Z",
+										"INV_SUB_LEDGER_ID": 8434458,
+										"CURRENCY_CONVERSION_TYPE": "0",
+										"INVENTORY_ITEM_ID": 15467,
+										"LAST_UPDATED_BY": 1090,
+										"BASIS_TYPE": 1
+									},
+									{
+										"PROGRAM_APPLICATION_ID": 702,
+										"PRIMARY_QUANTITY": 2000,
+										"LAST_UPDATE_LOGIN": 1199635,
+										"CONTRA_SET_ID": 1,
+										"TRANSACTION_SOURCE_TYPE_ID": 4,
+										"TRANSACTION_DATE": "2017-07-16T12:01:10Z",
+										"TRANSACTION_ID": 15717865,
+										"ORGANIZATION_ID": 101,
+										"CURRENCY_CONVERSION_RATE": -1,
+										"BASE_TRANSACTION_VALUE": 932.25,
+										"CURRENCY_CONVERSION_DATE": "2017-07-16T00:00:00Z",
+										"PROGRAM_ID": 36119,
+										"ACCOUNTING_LINE_TYPE": 2,
+										"CREATION_DATE": "2017-07-16T12:03:16Z",
+										"PROGRAM_UPDATE_DATE": "2017-07-16T12:03:16Z",
+										"CREATED_BY": 1090,
+										"REQUEST_ID": 1412594,
+										"TRANSACTION_SOURCE_ID": 198947,
+										"RATE_OR_AMOUNT": 0.466125,
+										"REFERENCE_ACCOUNT": 31477,
+										"LAST_UPDATE_DATE": "2017-07-16T12:03:16Z",
+										"INV_SUB_LEDGER_ID": 8434459,
+										"CURRENCY_CONVERSION_TYPE": "0",
+										"INVENTORY_ITEM_ID": 15467,
+										"LAST_UPDATED_BY": 1090,
+										"BASIS_TYPE": 1
+									},
+									{
+										"PROGRAM_APPLICATION_ID": 702,
+										"PRIMARY_QUANTITY": -2000,
+										"LAST_UPDATE_LOGIN": 1199635,
+										"CONTRA_SET_ID": 1,
+										"COST_ELEMENT_ID": 1,
+										"TRANSACTION_SOURCE_TYPE_ID": 4,
+										"TRANSACTION_DATE": "2017-07-16T12:01:10Z",
+										"TRANSACTION_ID": 15717866,
+										"ORGANIZATION_ID": 101,
+										"CURRENCY_CONVERSION_RATE": -1,
+										"BASE_TRANSACTION_VALUE": -163.09,
+										"CURRENCY_CONVERSION_DATE": "2017-07-16T00:00:00Z",
+										"PROGRAM_ID": 36119,
+										"ACCOUNTING_LINE_TYPE": 1,
+										"CREATION_DATE": "2017-07-16T12:03:16Z",
+										"PROGRAM_UPDATE_DATE": "2017-07-16T12:03:16Z",
+										"CREATED_BY": 1090,
+										"REQUEST_ID": 1412594,
+										"TRANSACTION_SOURCE_ID": 198947,
+										"RATE_OR_AMOUNT": 0.08154747311498503,
+										"REFERENCE_ACCOUNT": 24352,
+										"LAST_UPDATE_DATE": "2017-07-16T12:03:16Z",
+										"INV_SUB_LEDGER_ID": 8434461,
+										"CURRENCY_CONVERSION_TYPE": "0",
+										"INVENTORY_ITEM_ID": 15498,
+										"LAST_UPDATED_BY": 1090,
+										"BASIS_TYPE": 1
+									},
+									{
+										"PROGRAM_APPLICATION_ID": 702,
+										"PRIMARY_QUANTITY": 2000,
+										"LAST_UPDATE_LOGIN": 1199635,
+										"CONTRA_SET_ID": 1,
+										"TRANSACTION_SOURCE_TYPE_ID": 4,
+										"TRANSACTION_DATE": "2017-07-16T12:01:10Z",
+										"TRANSACTION_ID": 15717866,
+										"ORGANIZATION_ID": 101,
+										"CURRENCY_CONVERSION_RATE": -1,
+										"BASE_TRANSACTION_VALUE": 163.09,
+										"CURRENCY_CONVERSION_DATE": "2017-07-16T00:00:00Z",
+										"PROGRAM_ID": 36119,
+										"ACCOUNTING_LINE_TYPE": 2,
+										"CREATION_DATE": "2017-07-16T12:03:16Z",
+										"PROGRAM_UPDATE_DATE": "2017-07-16T12:03:16Z",
+										"CREATED_BY": 1090,
+										"REQUEST_ID": 1412594,
+										"TRANSACTION_SOURCE_ID": 198947,
+										"RATE_OR_AMOUNT": 0.08154747311498503,
+										"REFERENCE_ACCOUNT": 31477,
+										"LAST_UPDATE_DATE": "2017-07-16T12:03:16Z",
+										"INV_SUB_LEDGER_ID": 8434463,
+										"CURRENCY_CONVERSION_TYPE": "0",
+										"INVENTORY_ITEM_ID": 15498,
+										"LAST_UPDATED_BY": 1090,
+										"BASIS_TYPE": 1
+									},
+									{
+										"PROGRAM_APPLICATION_ID": 702,
+										"PRIMARY_QUANTITY": -2400,
+										"LAST_UPDATE_LOGIN": 1199635,
+										"CONTRA_SET_ID": 1,
+										"COST_ELEMENT_ID": 1,
+										"TRANSACTION_SOURCE_TYPE_ID": 4,
+										"TRANSACTION_DATE": "2017-07-16T12:01:10Z",
+										"TRANSACTION_ID": 15717867,
+										"ORGANIZATION_ID": 101,
+										"CURRENCY_CONVERSION_RATE": -1,
+										"BASE_TRANSACTION_VALUE": -355.49,
+										"CURRENCY_CONVERSION_DATE": "2017-07-16T00:00:00Z",
+										"PROGRAM_ID": 36119,
+										"ACCOUNTING_LINE_TYPE": 1,
+										"CREATION_DATE": "2017-07-16T12:03:16Z",
+										"PROGRAM_UPDATE_DATE": "2017-07-16T12:03:16Z",
+										"CREATED_BY": 1090,
+										"REQUEST_ID": 1412594,
+										"TRANSACTION_SOURCE_ID": 198947,
+										"RATE_OR_AMOUNT": 0.14812199191976416,
+										"REFERENCE_ACCOUNT": 24352,
+										"LAST_UPDATE_DATE": "2017-07-16T12:03:16Z",
+										"INV_SUB_LEDGER_ID": 8434464,
+										"CURRENCY_CONVERSION_TYPE": "0",
+										"INVENTORY_ITEM_ID": 15524,
+										"LAST_UPDATED_BY": 1090,
+										"BASIS_TYPE": 1
+									},
+									{
+										"PROGRAM_APPLICATION_ID": 702,
+										"PRIMARY_QUANTITY": 2400,
+										"LAST_UPDATE_LOGIN": 1199635,
+										"CONTRA_SET_ID": 1,
+										"TRANSACTION_SOURCE_TYPE_ID": 4,
+										"TRANSACTION_DATE": "2017-07-16T12:01:10Z",
+										"TRANSACTION_ID": 15717867,
+										"ORGANIZATION_ID": 101,
+										"CURRENCY_CONVERSION_RATE": -1,
+										"BASE_TRANSACTION_VALUE": 355.49,
+										"CURRENCY_CONVERSION_DATE": "2017-07-16T00:00:00Z",
+										"PROGRAM_ID": 36119,
+										"ACCOUNTING_LINE_TYPE": 2,
+										"CREATION_DATE": "2017-07-16T12:03:16Z",
+										"PROGRAM_UPDATE_DATE": "2017-07-16T12:03:16Z",
+										"CREATED_BY": 1090,
+										"REQUEST_ID": 1412594,
+										"TRANSACTION_SOURCE_ID": 198947,
+										"RATE_OR_AMOUNT": 0.14812199191976416,
+										"REFERENCE_ACCOUNT": 31477,
+										"LAST_UPDATE_DATE": "2017-07-16T12:03:16Z",
+										"INV_SUB_LEDGER_ID": 8434465,
+										"CURRENCY_CONVERSION_TYPE": "0",
+										"INVENTORY_ITEM_ID": 15524,
+										"LAST_UPDATED_BY": 1090,
+										"BASIS_TYPE": 1
+									}
+								],
+								"schema": {
+									"TRANSACTION_ID": "double",
+									"REFERENCE_ACCOUNT": "double",
+									"LAST_UPDATE_DATE": "int",
+									"LAST_UPDATED_BY": "double",
+									"CREATION_DATE": "int",
+									"CREATED_BY": "double",
+									"LAST_UPDATE_LOGIN": "double",
+									"INVENTORY_ITEM_ID": "double",
+									"ORGANIZATION_ID": "double",
+									"TRANSACTION_DATE": "int",
+									"TRANSACTION_SOURCE_ID": "double",
+									"TRANSACTION_SOURCE_TYPE_ID": "double",
+									"TRANSACTION_VALUE": "double",
+									"PRIMARY_QUANTITY": "double",
+									"GL_BATCH_ID": "double",
+									"ACCOUNTING_LINE_TYPE": "double",
+									"BASE_TRANSACTION_VALUE": "double",
+									"CONTRA_SET_ID": "double",
+									"RATE_OR_AMOUNT": "double",
+									"BASIS_TYPE": "double",
+									"RESOURCE_ID": "double",
+									"COST_ELEMENT_ID": "double",
+									"ACTIVITY_ID": "double",
+									"CURRENCY_CODE": "string",
+									"CURRENCY_CONVERSION_DATE": "int",
+									"CURRENCY_CONVERSION_TYPE": "string",
+									"CURRENCY_CONVERSION_RATE": "double",
+									"REQUEST_ID": "double",
+									"PROGRAM_APPLICATION_ID": "double",
+									"PROGRAM_ID": "double",
+									"PROGRAM_UPDATE_DATE": "int",
+									"ENCUMBRANCE_TYPE_ID": "double",
+									"REPETITIVE_SCHEDULE_ID": "double",
+									"GL_SL_LINK_ID": "double",
+									"USSGL_TRANSACTION_CODE": "string",
+									"INV_SUB_LEDGER_ID": "double"
+								}
+							},
+							"isSummary": false,
+							"language": "scala"
+						},
+						"persist_state": {
+							"view": {
+								"type": "details",
+								"chartOptions": {
+									"chartType": "bar",
+									"aggregationType": "sum",
+									"categoryFieldKeys": [
+										"REFERENCE_ACCOUNT"
+									],
+									"seriesFieldKeys": [
+										"TRANSACTION_ID"
+									],
+									"isStacked": false
+								}
+							}
+						}
+					}
+				}
+			},
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/5a2180f1-3f1d-46b5-880a-c82f25797121/resourceGroups/WHIL-Syapse/providers/Microsoft.Synapse/workspaces/wp01/bigDataPools/WHILASP",
+				"name": "WHILASP",
+				"type": "Spark",
+				"endpoint": "https://wp01.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/WHILASP",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "2.4",
+				"nodeCount": 3,
+				"cores": 8,
+				"memory": 56,
+				"extraHeader": null
+			}
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"microsoft": {
+						"language": "python"
+					},
+					"collapsed": false
+				},
+				"source": [
+					"%%pyspark\r\n",
+					"df = spark.read.load('abfss://whilfs@whillake.dfs.core.windows.net/Perquest_Files/EBS_12_2_5/INV.MTL_TRANSACTION_ACCOUNTS.parquet', format='parquet')\r\n",
+					"display(df.limit(10))"
+				],
+				"attachments": null,
+				"execution_count": 3
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					"df.describe(\"INVENTORY_ITEM_ID\").show()"
+				],
+				"attachments": null,
+				"execution_count": 4
+			}
+		]
+	}
+}

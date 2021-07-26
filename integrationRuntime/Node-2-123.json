@@ -1,0 +1,7 @@
+{
+	"name": "Node-2-123",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "Node running in 192.168.2.123. Machine Name: Server 92 not stable node"
+	}
+}

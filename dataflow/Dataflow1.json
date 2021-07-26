@@ -1,0 +1,42 @@
+{
+	"name": "Dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "TestCRMSource1ForMerge",
+						"type": "DatasetReference"
+					},
+					"name": "InitialLoadFile"
+				},
+				{
+					"dataset": {
+						"referenceName": "TestCRMSourceDeltaForMerge",
+						"type": "DatasetReference"
+					},
+					"name": "TestCRMDeltaForMerge"
+				}
+			],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "DeltaLake",
+						"type": "LinkedServiceReference"
+					},
+					"name": "InitialFileInDeltaFormat"
+				},
+				{
+					"linkedService": {
+						"referenceName": "DeltaLake",
+						"type": "LinkedServiceReference"
+					},
+					"name": "DeltaFile"
+				}
+			],
+			"transformations": [],
+			"script": "source(output(\n\t\tID as decimal(38,18),\n\t\tCREATED_DATE as timestamp,\n\t\tMODIFIED_BY as string,\n\t\tPASSWORD_EXPIRED as decimal(38,18),\n\t\tUSERNAME as string,\n\t\tACCOUNT_LOCKED as decimal(38,18),\n\t\tPASSWD as string,\n\t\tCREATED_BY as string,\n\t\tACCOUNT_EXPIRED as decimal(38,18),\n\t\tENABLED as decimal(38,18),\n\t\tMODIFIED_DATE as timestamp,\n\t\tFULL_NAME as string,\n\t\tSUB_SECTION as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tlimit: 100,\n\tignoreNoFilesFound: false,\n\trowUrlColumn: 'FileName',\n\tformat: 'parquet',\n\tpartitionBy('dynamicRange', 4,\n\t\tID\n\t)) ~> InitialLoadFile\nsource(output(\n\t\tID as decimal(38,18),\n\t\tCREATED_DATE as timestamp,\n\t\tMODIFIED_BY as string,\n\t\tPASSWORD_EXPIRED as decimal(38,18),\n\t\tUSERNAME as string,\n\t\tACCOUNT_LOCKED as decimal(38,18),\n\t\tPASSWD as string,\n\t\tCREATED_BY as string,\n\t\tACCOUNT_EXPIRED as decimal(38,18),\n\t\tENABLED as decimal(38,18),\n\t\tMODIFIED_DATE as timestamp,\n\t\tFULL_NAME as string,\n\t\tSUB_SECTION as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: true,\n\tinferDriftedColumnTypes: true,\n\tlimit: 100,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet',\n\tpartitionBy('hash', 1)) ~> TestCRMDeltaForMerge\nInitialLoadFile sink(allowSchemaDrift: true,\n\tvalidateSchema: true,\n\tinput(\n\t\tID as decimal(38,18),\n\t\tCREATED_DATE as timestamp,\n\t\tMODIFIED_BY as string,\n\t\tPASSWORD_EXPIRED as decimal(38,18),\n\t\tUSERNAME as string,\n\t\tACCOUNT_LOCKED as decimal(38,18),\n\t\tPASSWD as string,\n\t\tCREATED_BY as string,\n\t\tACCOUNT_EXPIRED as decimal(38,18),\n\t\tENABLED as decimal(38,18),\n\t\tMODIFIED_DATE as timestamp,\n\t\tFULL_NAME as string,\n\t\tSUB_SECTION as string\n\t),\n\tformat: 'delta',\n\tcompressionType: 'snappy',\n\tcompressionLevel: 'Optimal',\n\tcontainer: 'whilfs',\n\tfolderPath: 'Perquest_Files/MergedFiles',\n\tmergeSchema: true,\n\tautoCompact: false,\n\toptimizedWrite: false,\n\tvacuum: 0,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tkeys:['ID'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tmapColumn(\n\t\tID,\n\t\tCREATED_DATE,\n\t\tMODIFIED_BY,\n\t\tPASSWORD_EXPIRED,\n\t\tUSERNAME,\n\t\tACCOUNT_LOCKED,\n\t\tPASSWD,\n\t\tCREATED_BY,\n\t\tACCOUNT_EXPIRED,\n\t\tENABLED,\n\t\tMODIFIED_DATE,\n\t\tFULL_NAME,\n\t\tSUB_SECTION\n\t),\n\tpartitionBy('hash', 4,\n\t\tID\n\t)) ~> InitialFileInDeltaFormat\nTestCRMDeltaForMerge sink(allowSchemaDrift: true,\n\tvalidateSchema: true,\n\tformat: 'delta',\n\tcompressionType: 'snappy',\n\tcompressionLevel: 'Optimal',\n\tcontainer: 'whilfs',\n\tfolderPath: 'Perquest_Files/MergedFiles',\n\tmergeSchema: true,\n\tautoCompact: false,\n\toptimizedWrite: false,\n\tvacuum: 0,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tkeys:['ID'],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tmapColumn(\n\t\tID,\n\t\tCREATED_DATE,\n\t\tMODIFIED_BY,\n\t\tPASSWORD_EXPIRED,\n\t\tUSERNAME,\n\t\tACCOUNT_LOCKED,\n\t\tPASSWD,\n\t\tCREATED_BY,\n\t\tACCOUNT_EXPIRED,\n\t\tENABLED,\n\t\tMODIFIED_DATE,\n\t\tFULL_NAME,\n\t\tSUB_SECTION\n\t),\n\tpartitionBy('hash', 1)) ~> DeltaFile"
+		}
+	}
+}

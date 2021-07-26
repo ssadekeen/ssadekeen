@@ -1,0 +1,162 @@
+{
+	"name": "Copy_SQL_Delta_Incrimental",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get Tables",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "select\n      src_schema,\n      src_db,\n      src_name, \n      dst_schema,\n      dst_type,\n      dst_name,\n      dst_folder, \n      process_type,\n      file_type, \n      load_synapse,\n      distribution_type,\n      upsert_key_column,\n      incremental_watermark_column, \n      case\n         when process_type = 'FULL' then 'select * from ' + src_schema + '.' + src_name + ' where 1 = '\n         when process_type = 'Incremental' then 'select * from ' + src_schema + '.' + src_name + ' where ' + incremental_watermark_column + ' > ' \n      end as SQLCommand,\n      case \n          when process_type = 'FULL' then '1'\n         when process_type = 'incremental' then cast(isnull(incremental_pk_value, incremental_watermark_value) as varchar(50))\n      end as WhereValue,\n      dst_folder + '/' + dst_name+ '/' + file_type+ '/' + format(getdate(),'yyyy-MM-dd')  as FolderName,\n      dst_name +'.' + file_type as FileName\n   from\n      dbo.pipeline_parameter\n   where load_synapse = 1\n      AND process_type = 'incremental'",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "PipelineParameter",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "ForEach1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get Tables",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Tables').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "df_SQL_to_Lake_Incrimental",
+							"type": "ExecuteDataFlow",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "1.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"dataflow": {
+									"referenceName": "df_SQL_to_Lake",
+									"type": "DataFlowReference",
+									"parameters": {
+										"SQLCommand": {
+											"value": "'@{item().SQLCommand}'",
+											"type": "Expression"
+										},
+										"WhereValue": {
+											"value": "'@{item().WhereValue}'",
+											"type": "Expression"
+										},
+										"FileName": {
+											"value": "'@{item().FileName}'",
+											"type": "Expression"
+										}
+									},
+									"datasetParameters": {
+										"dstLake": {
+											"FolderName": {
+												"value": "@item().FolderName",
+												"type": "Expression"
+											},
+											"FileName": {
+												"value": "@item().FileName",
+												"type": "Expression"
+											}
+										}
+									}
+								},
+								"compute": {
+									"coreCount": 8,
+									"computeType": "MemoryOptimized"
+								},
+								"traceLevel": "Fine"
+							}
+						},
+						{
+							"name": "df_upsert_to_lake",
+							"type": "ExecuteDataFlow",
+							"dependsOn": [
+								{
+									"activity": "df_SQL_to_Lake_Incrimental",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "1.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"dataflow": {
+									"referenceName": "df_usert_to_lake",
+									"type": "DataFlowReference",
+									"parameters": {
+										"FolderName": {
+											"value": "'@{item().FolderName}'",
+											"type": "Expression"
+										},
+										"upsert_key_column": {
+											"value": "'@{item().upsert_key_column}'",
+											"type": "Expression"
+										}
+									},
+									"datasetParameters": {
+										"srcLake": {
+											"FolderName": {
+												"value": "@item().FolderName",
+												"type": "Expression"
+											},
+											"FileName": {
+												"value": "@item().FileName",
+												"type": "Expression"
+											}
+										}
+									}
+								},
+								"compute": {
+									"coreCount": 8,
+									"computeType": "General"
+								},
+								"traceLevel": "Fine"
+							}
+						}
+					]
+				}
+			}
+		],
+		"folder": {
+			"name": "DataBaseTo_Parquet_ToDelta_usingCtrlTbl"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-07-26T03:59:09Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

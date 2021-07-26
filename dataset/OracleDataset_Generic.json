@@ -1,0 +1,53 @@
+{
+	"name": "OracleDataset_Generic",
+	"properties": {
+		"description": "This is a test dataset to do a POC if we can parameterize the dataset and connections",
+		"linkedServiceName": {
+			"referenceName": "ParameterizedOracleConnection",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"Host": {
+					"value": "@dataset().Host",
+					"type": "Expression"
+				},
+				"Port": {
+					"value": "@dataset().Port",
+					"type": "Expression"
+				},
+				"ServiceName": {
+					"value": "@dataset().ServiceName",
+					"type": "Expression"
+				},
+				"UserName": {
+					"value": "@dataset().UserName",
+					"type": "Expression"
+				},
+				"Password": {
+					"value": "@dataset().Password",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"Host": {
+				"type": "String"
+			},
+			"Port": {
+				"type": "String"
+			},
+			"ServiceName": {
+				"type": "String"
+			},
+			"UserName": {
+				"type": "String"
+			},
+			"Password": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

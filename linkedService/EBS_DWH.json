@@ -1,0 +1,17 @@
+{
+	"name": "EBS_DWH",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"description": "eBusiness Solution DWH",
+		"annotations": [],
+		"type": "Oracle",
+		"typeProperties": {
+			"connectionString": "host=192.168.100.163;port=1521;sid=obidb;user id=WT_DWH_SELECT",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJkNzlhOTBjOC0yYzg0LTRkOWItOTlmMy05NjA1YzUyM2YzZGUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "NodeNoman",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

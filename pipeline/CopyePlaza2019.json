@@ -1,0 +1,1461 @@
+{
+	"name": "CopyePlaza2019",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_clb",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_clb",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "@{item().source.tableName}"
+								},
+								{
+									"name": "Destination",
+									"value": "whilfs/Perquest_Files/@{item().destination.fileName}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "MySqlSource"
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false,
+								"validateDataConsistency": true,
+								"logSettings": {
+									"enableCopyActivityLog": true,
+									"copyActivityLogSettings": {
+										"logLevel": "Warning",
+										"enableReliableLogging": false
+									},
+									"logLocationSettings": {
+										"linkedServiceName": {
+											"referenceName": "ePlaza",
+											"type": "LinkedServiceReference"
+										},
+										"path": "whilfs/PipelineLog"
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_clb",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_tableName": "@item().source.tableName"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_clb",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_fileName": "@item().destination.fileName"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"tableName": "`audittbl_wl_product_attribute`"
+						},
+						"destination": {
+							"fileName": "eplaza.audittbl_wl_product_attribute2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`audittbl_wl_product_description`"
+						},
+						"destination": {
+							"fileName": "eplaza.audittbl_wl_product_description2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`audittbl_wl_product_filter`"
+						},
+						"destination": {
+							"fileName": "eplaza.audittbl_wl_product_filter2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`audittbl_wl_product_image`"
+						},
+						"destination": {
+							"fileName": "eplaza.audittbl_wl_product_image2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`audittbl_wl_product_tabs`"
+						},
+						"destination": {
+							"fileName": "eplaza.audittbl_wl_product_tabs2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`audittbl_wl_product_to_category`"
+						},
+						"destination": {
+							"fileName": "eplaza.audittbl_wl_product_to_category2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`audittbl_wl_product`"
+						},
+						"destination": {
+							"fileName": "eplaza.audittbl_wl_product2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`audittbl_wl_seo_url`"
+						},
+						"destination": {
+							"fileName": "eplaza.audittbl_wl_seo_url2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`back_wl_distributor_info`"
+						},
+						"destination": {
+							"fileName": "eplaza.back_wl_distributor_info2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`back_wl_plaza_service_center`"
+						},
+						"destination": {
+							"fileName": "eplaza.back_wl_plaza_service_center2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_address`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_address2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_api_ip`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_api_ip2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_api_session`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_api_session2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_api`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_api2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_attribute_description`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_attribute_description2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_attribute_group_description`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_attribute_group_description2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_attribute_group`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_attribute_group2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_attribute`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_attribute2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_banner_image`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_banner_image2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_banner`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_banner2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_bm_author_description`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_bm_author_description2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_bm_author_group`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_bm_author_group2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_bm_author`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_bm_author2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_bm_category_description`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_bm_category_description2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_bm_category_path`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_bm_category_path2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_bm_category_to_layout`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_bm_category_to_layout2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_bm_category_to_store`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_bm_category_to_store2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_bm_category`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_bm_category2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_bm_post_description`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_bm_post_description2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_bm_post_related`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_bm_post_related2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_bm_post_to_category`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_bm_post_to_category2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_bm_post_to_layout`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_bm_post_to_layout2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_bm_post_to_product`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_bm_post_to_product2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_bm_post_to_store`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_bm_post_to_store2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_bm_post_video`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_bm_post_video2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_bm_post`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_bm_post2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_bm_review_to_image`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_bm_review_to_image2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_bm_review`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_bm_review2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_cart`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_cart2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_category_description`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_category_description2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_category_filter`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_category_filter2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_category_path`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_category_path2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_category_to_layout`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_category_to_layout2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_category_to_store`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_category_to_store2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_category`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_category2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_country`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_country2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_coupon_category`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_coupon_category2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_coupon_history`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_coupon_history2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_coupon_product`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_coupon_product2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_coupon`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_coupon2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_currency`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_currency2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_custom_field_customer_group`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_custom_field_customer_group2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_custom_field_description`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_custom_field_description2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_custom_field_value_description`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_custom_field_value_description2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_custom_field_value`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_custom_field_value2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_custom_field`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_custom_field2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_customer_activity`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_customer_activity2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_customer_affiliate`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_customer_affiliate2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_customer_approval`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_customer_approval2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_customer_group_description`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_customer_group_description2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_customer_group`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_customer_group2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_customer_history`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_customer_history2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_customer_ip`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_customer_ip2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_customer_login`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_customer_login2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_customer_online`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_customer_online2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_customer_reward`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_customer_reward2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_customer_search`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_customer_search2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_customer_transaction`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_customer_transaction2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_customer_wishlist`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_customer_wishlist2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_customer`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_customer2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_d_meta_data`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_d_meta_data2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_d_post_category`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_d_post_category2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_d_target_keyword`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_d_target_keyword2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_d_validator`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_d_validator2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_distributor_info__2_`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_distributor_info__2_2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_distributor_info`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_distributor_info2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_download_description`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_download_description2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_download`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_download2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_event`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_event2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_extension_install`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_extension_install2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_extension_path`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_extension_path2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_extension`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_extension2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_extramod_area`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_extramod_area2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_extramod_outlet`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_extramod_outlet2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_filter_description`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_filter_description2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_filter_group_description`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_filter_group_description2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_filter_group`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_filter_group2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_filter`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_filter2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_geo_zone`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_geo_zone2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_information_description`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_information_description2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_information_to_layout`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_information_to_layout2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_information_to_store`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_information_to_store2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_information`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_information2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_language`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_language2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_layout_module`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_layout_module2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_layout_route`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_layout_route2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_layout`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_layout2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_length_class_description`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_length_class_description2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_length_class`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_length_class2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_location`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_location2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_manufacturer_to_store`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_manufacturer_to_store2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_manufacturer`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_manufacturer2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_marketing`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_marketing2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_modification`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_modification2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_module`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_module2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_option_description`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_option_description2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_option_value_description`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_option_value_description2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_option_value`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_option_value2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_option`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_option2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_order_history`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_order_history2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_order_option`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_order_option2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_order_product`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_order_product2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_order_recurring_transaction`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_order_recurring_transaction2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_order_recurring`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_order_recurring2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_order_shipment`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_order_shipment2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_order_status`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_order_status2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_order_total`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_order_total2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_order_voucher`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_order_voucher2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_order`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_order2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_plaza_service_center`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_plaza_service_center2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_product_attribute`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_product_attribute2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_product_description`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_product_description2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_product_discount`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_product_discount2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_product_filter`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_product_filter2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_product_image`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_product_image2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_product_option_value`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_product_option_value2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_product_option`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_product_option2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_product_recurring`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_product_recurring2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_product_related`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_product_related2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_product_reward`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_product_reward2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_product_special`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_product_special2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_product_tabs`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_product_tabs2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_product_to_category`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_product_to_category2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_product_to_download`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_product_to_download2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_product_to_layout`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_product_to_layout2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_product_to_store`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_product_to_store2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_product_video`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_product_video2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_product`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_product2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_recurring_description`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_recurring_description2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_recurring`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_recurring2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_return_action`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_return_action2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_return_history`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_return_history2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_return_reason`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_return_reason2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_return_status`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_return_status2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_return`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_return2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_review`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_review2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_seo_url`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_seo_url2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_session`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_session2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_setting`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_setting2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_shipping_courier`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_shipping_courier2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_statistics`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_statistics2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_stock_status`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_stock_status2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_store`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_store2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_tax_class`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_tax_class2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_tax_rate_to_customer_group`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_tax_rate_to_customer_group2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_tax_rate`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_tax_rate2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_tax_rule`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_tax_rule2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_theme`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_theme2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_translation`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_translation2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_upload`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_upload2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_user_group`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_user_group2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_user`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_user2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_voucher_history`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_voucher_history2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_voucher_theme_description`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_voucher_theme_description2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_voucher_theme`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_voucher_theme2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_voucher`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_voucher2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_weight_class_description`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_weight_class_description2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_weight_class`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_weight_class2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_zone_to_geo_zone`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_zone_to_geo_zone2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`wl_zone`"
+						},
+						"destination": {
+							"fileName": "eplaza.wl_zone2.parquet"
+						}
+					}
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-07-26T04:40:24Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

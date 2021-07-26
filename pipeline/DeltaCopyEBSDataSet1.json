@@ -1,0 +1,92 @@
+{
+	"name": "DeltaCopyEBSDataSet1",
+	"properties": {
+		"activities": [
+			{
+				"name": "EBS TableList Set1",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select col.owner as schema_name,\n       col.table_name, \n       col.column_name AS Data_Source_WaterMarkColumn\n       from sys.all_tab_columns col, SYS.ALL_TABLES tbl\n       WHERE col.OWNER = tbl.OWNER \n       AND col.TABLE_NAME = tbl.TABLE_NAME \n AND (tbl.OWNER = 'INV' OR  tbl.OWNER = 'ONT')\nAND col.column_name = 'LAST_UPDATE_DATE'\nAND tbl.NUM_ROWS > 0 ORDER BY NUM_ROWS ASC;",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"dataset": {
+						"referenceName": "EBSTablesList1",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "For each EBS Table in Set1",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "EBS TableList Set1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('EBS TableList Set1').output.value",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"activities": [
+						{
+							"name": "DeltaCopy_OracleDB_w_CtrlTbl",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "DeltaCopy_OracleDB_w_CtrlTbl",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"Data_Source_Table_Name": {
+										"value": "@item().TABLE_NAME",
+										"type": "Expression"
+									},
+									"Data_Source_WaterMarkColumn": {
+										"value": "@item().Data_Source_WaterMarkColumn",
+										"type": "Expression"
+									},
+									"Data_Destination_Container": "whilfs",
+									"Data_Destination_Directory": "Perquest_Files/EBS",
+									"Control_Table_Table_Name": "watermarktable",
+									"Control_Table_Column_Name": "WatermarkValue",
+									"Data_Source_Schema": {
+										"value": "@item().Schema_Name",
+										"type": "Expression"
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"folder": {
+			"name": "ParquetFormat/DeltaCopy"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-07-12T16:02:11Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

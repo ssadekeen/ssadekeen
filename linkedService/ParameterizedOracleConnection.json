@@ -1,0 +1,32 @@
+{
+	"name": "ParameterizedOracleConnection",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"parameters": {
+			"Host": {
+				"type": "string"
+			},
+			"Port": {
+				"type": "string"
+			},
+			"ServiceName": {
+				"type": "string"
+			},
+			"UserName": {
+				"type": "string"
+			},
+			"Password": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Oracle",
+		"typeProperties": {
+			"connectionString": "host=@{linkedService().Host};port=@{linkedService().Port};serviceName=@{linkedService().ServiceName};user id=@{linkedService().UserName};Password=@{linkedService().Password}"
+		},
+		"connectVia": {
+			"referenceName": "Node-2-123",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

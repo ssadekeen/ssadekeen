@@ -1,0 +1,13 @@
+{
+	"name": "CRMTableList",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "WCRM",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

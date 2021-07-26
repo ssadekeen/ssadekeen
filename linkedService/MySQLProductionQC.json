@@ -1,0 +1,16 @@
+{
+	"name": "MySQLProductionQC",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "MySql",
+		"typeProperties": {
+			"connectionString": "server=192.168.200.15;port=3306;database=report_qc_management;user=warhouse;sslmode=1;usesystemtruststore=0",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI5MmE4MmRiZi1iNTk5LTRkNTgtYjg4Yi0yMjRmZTQ2ODg1NzciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "NodeNoman",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

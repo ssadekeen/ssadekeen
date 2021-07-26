@@ -1,0 +1,24 @@
+{
+	"name": "ParameterizedMySqlConnection",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"parameters": {
+			"DatabaseName": {
+				"type": "string"
+			},
+			"DBServer": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "MySql",
+		"typeProperties": {
+			"connectionString": "server=@{linkedService().DBServer};port=3306;database=@{linkedService().DatabaseName};user=warhouse;sslmode=1;usesystemtruststore=1",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJjZDMyOTY3Zi04NjhkLTQ5ZGYtODAyNS00NWUyODhlODQ1ZGYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "Node-2-123",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

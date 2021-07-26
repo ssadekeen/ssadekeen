@@ -1,0 +1,16 @@
+{
+	"name": "MySqlePlaza1",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "MySql",
+		"typeProperties": {
+			"connectionString": "server=wcpanel.waltonbd.com;port=3306;database=epla_db;user=remote;sslmode=1;usesystemtruststore=0",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJlZjk2ZmZhOS1hMTZhLTQ0MGMtYTJlMi02MWU1ZmYyMzYyMjkiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "Node-2-123",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

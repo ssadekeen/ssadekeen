@@ -1,0 +1,16 @@
+{
+	"name": "WCRM",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "Oracle",
+		"typeProperties": {
+			"connectionString": "host=192.168.150.5;port=1521;servicename=hrpos;user id=SHIBLEE",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI4MmIwZDAyNS1lYmEyLTQ1OWMtOGZhMi1iNDJjYTE1ZThlZDciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "Node-2-123",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

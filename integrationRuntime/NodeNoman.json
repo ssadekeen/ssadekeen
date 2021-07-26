@@ -1,0 +1,7 @@
+{
+	"name": "NodeNoman",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "NodeNoman"
+	}
+}

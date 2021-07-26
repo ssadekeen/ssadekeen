@@ -1,0 +1,39 @@
+{
+	"name": "DS_DeltaLake",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DeltaLake",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"SchemaName": {
+				"type": "string"
+			},
+			"FileName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "TestDataSets_TobeDeleted_Later"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().FileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@concat('DeltaLake/Raw/',dataset().SchemaName)",
+					"type": "Expression"
+				},
+				"container": "whilfs"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

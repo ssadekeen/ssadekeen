@@ -1,0 +1,21 @@
+{
+	"name": "EasyRegBlob",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"description": "Easy Registraiton data in blob",
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"serviceEndpoint": "https://whillake.blob.core.windows.net",
+			"accountKind": "StorageV2",
+			"credential": {
+				"referenceName": "WorkspaceSystemIdentity",
+				"type": "CredentialReference"
+			}
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

@@ -1,0 +1,137 @@
+{
+	"name": "CopyPOSDataInParquet",
+	"properties": {
+		"description": "Copy data from POS Database",
+		"activities": [
+			{
+				"name": "Get POS TableList",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "SELECT owner, table_name FROM SYS.ALL_TABLES WHERE OWNER = 'POS' AND TABLE_NAME NOT LIKE '%_BK' ORDER BY NUM_ROWS ASC;",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"dataset": {
+						"referenceName": "POSTableList",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "For Each POS Table",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get POS TableList",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get POS TableList').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Export Table Data",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 2,
+								"retryIntervalInSeconds": 120,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "@{item().OWNER}.@{item().TABLE_NAME}"
+								},
+								{
+									"name": "Destination",
+									"value": "whilfs/Perquest_Files/@{concat(item().OWNER,'.',item().TABLE_NAME,'.parquet')}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "OracleSource",
+									"partitionOption": "None",
+									"queryTimeout": "02:00:00"
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings",
+										"maxConcurrentConnections": 4
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "POSTable",
+									"type": "DatasetReference",
+									"parameters": {
+										"Schema": {
+											"value": "@item().OWNER",
+											"type": "Expression"
+										},
+										"TableName": {
+											"value": "@item().TABLE_NAME",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "POSParquet",
+									"type": "DatasetReference",
+									"parameters": {
+										"FileName": {
+											"value": "@concat(item().OWNER,'.',item().TABLE_NAME,'.parquet')",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"folder": {
+			"name": "ParquetFormat"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-07-12T10:48:40Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

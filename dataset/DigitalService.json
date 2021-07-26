@@ -1,0 +1,13 @@
+{
+	"name": "DigitalService",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MySqlDigitalService",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "MySqlTable",
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

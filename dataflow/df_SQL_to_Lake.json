@@ -1,0 +1,28 @@
+{
+	"name": "df_SQL_to_Lake",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "PQSPOS",
+						"type": "DatasetReference"
+					},
+					"name": "srcSQL"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_ADSL2",
+						"type": "DatasetReference"
+					},
+					"name": "dstLake"
+				}
+			],
+			"transformations": [],
+			"script": "parameters{\n\tSQLCommand as string,\n\tWhereValue as string,\n\tFileName as string\n}\nsource(output(\n\t\tId as string,\n\t\tEmail as string,\n\t\tEmailConfirmed as boolean,\n\t\tPasswordHash as string,\n\t\tSecurityStamp as string,\n\t\tPhoneNumber as string,\n\t\tPhoneNumberConfirmed as boolean,\n\t\tTwoFactorEnabled as boolean,\n\t\tLockoutEndDateUtc as timestamp,\n\t\tLockoutEnabled as boolean,\n\t\tAccessFailedCount as integer,\n\t\tUserName as string,\n\t\tUserId as integer,\n\t\tIsEnabled as boolean,\n\t\tDealerName as string,\n\t\tDealerType as string,\n\t\tDealerCode as string,\n\t\tDealerTypeId as integer,\n\t\tIsManager as boolean\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinferDriftedColumnTypes: true,\n\tlimit: 100,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: (\"{$SQLCommand}'{$WhereValue}'\"),\n\tformat: 'query') ~> srcSQL\nsrcSQL sink(allowSchemaDrift: true,\n\tvalidateSchema: true,\n\tformat: 'parquet',\n\tpartitionFileNames:['$FileName'],\n\ttruncate: true,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tpartitionBy('hash', 1)) ~> dstLake"
+		}
+	}
+}

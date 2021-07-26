@@ -1,0 +1,182 @@
+{
+	"name": "POS MOBILE  NUMBERS",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "WHILASP",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 10,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "10",
+				"spark.dynamicAllocation.maxExecutors": "10"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1",
+				"state": {
+					"4d33f67d-b09b-4337-a624-5510048ddb3c": {
+						"type": "Synapse.DataFrame",
+						"sync_state": {
+							"table": {
+								"rows": [
+									{
+										"ID": 1,
+										"MOBILE_PHONE": "1716037381"
+									},
+									{
+										"ID": 2,
+										"MOBILE_PHONE": "01712-073209"
+									},
+									{
+										"ID": 3,
+										"MOBILE_PHONE": "01712657172"
+									},
+									{
+										"ID": 4,
+										"MOBILE_PHONE": "01745217369"
+									},
+									{
+										"ID": 5,
+										"MOBILE_PHONE": "01819230459"
+									},
+									{
+										"ID": 6,
+										"MOBILE_PHONE": "01621614227"
+									},
+									{
+										"ID": 7,
+										"MOBILE_PHONE": "01783383700"
+									},
+									{
+										"ID": 8,
+										"MOBILE_PHONE": "01919552014"
+									},
+									{
+										"ID": 9,
+										"MOBILE_PHONE": "01710697953"
+									},
+									{
+										"ID": 10,
+										"MOBILE_PHONE": "01926498368"
+									}
+								],
+								"schema": {
+									"ID": "double",
+									"MOBILE_PHONE": "string"
+								}
+							},
+							"isSummary": false,
+							"language": "scala"
+						},
+						"persist_state": {
+							"view": {
+								"type": "details",
+								"chartOptions": {
+									"chartType": "bar",
+									"aggregationType": "sum",
+									"categoryFieldKeys": [
+										"MOBILE_PHONE"
+									],
+									"seriesFieldKeys": [
+										"ID"
+									],
+									"isStacked": false
+								}
+							}
+						}
+					}
+				}
+			},
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/5a2180f1-3f1d-46b5-880a-c82f25797121/resourceGroups/WHIL-Syapse/providers/Microsoft.Synapse/workspaces/wp01/bigDataPools/WHILASP",
+				"name": "WHILASP",
+				"type": "Spark",
+				"endpoint": "https://wp01.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/WHILASP",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "2.4",
+				"nodeCount": 3,
+				"cores": 8,
+				"memory": 56,
+				"extraHeader": null
+			}
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"microsoft": {
+						"language": "python"
+					},
+					"collapsed": false
+				},
+				"source": [
+					"%%pyspark\r\n",
+					"df = spark.read.load('abfss://whilfs@whillake.dfs.core.windows.net/Perquest_Files/POS.CUSTOMER_MOBILE_NUMBER.parquet', format='parquet')\r\n",
+					"display(df.limit(10))"
+				],
+				"attachments": null,
+				"execution_count": 1
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					"df.columns"
+				],
+				"attachments": null,
+				"execution_count": 2
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					"df.describe(\"Mobile_Phone\").show()"
+				],
+				"attachments": null,
+				"execution_count": 4
+			}
+		]
+	}
+}

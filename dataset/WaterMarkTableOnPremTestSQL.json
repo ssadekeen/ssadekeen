@@ -1,0 +1,33 @@
+{
+	"name": "WaterMarkTableOnPremTestSQL",
+	"properties": {
+		"description": "Control table (WaterMarkTable) On-Prem Test SQL Server",
+		"linkedServiceName": {
+			"referenceName": "OnPremToAzureDWH",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "WatermarkValue",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "SchemaName",
+				"type": "varchar"
+			},
+			{
+				"name": "TableName",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "watermarktable"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,42 @@
+{
+	"name": "DeltaPerquest",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CRMBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"Data_Destination_Container": {
+				"type": "string"
+			},
+			"Data_Destination_Directory": {
+				"type": "string"
+			},
+			"DestinationFileName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().DestinationFileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().Data_Destination_Directory",
+					"type": "Expression"
+				},
+				"container": {
+					"value": "@dataset().Data_Destination_Container",
+					"type": "Expression"
+				}
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

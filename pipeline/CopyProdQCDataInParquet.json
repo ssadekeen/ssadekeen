@@ -1,0 +1,121 @@
+{
+	"name": "CopyProdQCDataInParquet",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get Production QC TableList",
+				"description": "Get a list of tables in Production QC Database",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource",
+						"query": "SHOW TABLES;"
+					},
+					"dataset": {
+						"referenceName": "ProductionQCTableList",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "For Each QC Table",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get Production QC TableList",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Production QC TableList').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Export QC Data",
+							"description": "Export data from each QC table to BlobStorage",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 2,
+								"retryIntervalInSeconds": 120,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "@{item().Tables_in_report_qc_management}"
+								},
+								{
+									"name": "Destination",
+									"value": "whilfs/Perquest_Files/@{concat('PQC.',item().Tables_in_report_qc_management,'.perquest')}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "MySqlSource"
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "ProductionQCTables",
+									"type": "DatasetReference",
+									"parameters": {
+										"TableName": {
+											"value": "@item().Tables_in_report_qc_management",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "PQCParquet",
+									"type": "DatasetReference",
+									"parameters": {
+										"FileName": {
+											"value": "@concat('PQC.',item().Tables_in_report_qc_management,'.parquet')",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"folder": {
+			"name": "ParquetFormat"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-07-12T10:48:46Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

@@ -1,0 +1,78 @@
+{
+	"name": "Parquet to Delta and merge",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "WHILASP",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "56g",
+			"driverCores": 8,
+			"executorMemory": "56g",
+			"executorCores": 8,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/5a2180f1-3f1d-46b5-880a-c82f25797121/resourceGroups/WHIL-Syapse/providers/Microsoft.Synapse/workspaces/wp01/bigDataPools/WHILASP",
+				"name": "WHILASP",
+				"type": "Spark",
+				"endpoint": "https://wp01.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/WHILASP",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "2.4",
+				"nodeCount": 3,
+				"cores": 8,
+				"memory": 56,
+				"extraHeader": null
+			}
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"source": [
+					"from delta.tables import *\r\n",
+					"\r\n",
+					"deltaTable = DeltaTable.convertToDelta(spark, \"parquet.`abfss://whilfs@whillake.dfs.core.windows.net/Perquest_Files`\")\r\n",
+					"\r\n",
+					"\r\n",
+					"# deltaTable.alias(\"events\").merge(\r\n",
+					"#     source = updatesDF.alias(\"updates\"),\r\n",
+					"#     condition = \"events.eventId = updates.eventId\"\r\n",
+					"#   ).whenMatchedUpdate(set =\r\n",
+					"#     {\r\n",
+					"#       \"data\": \"updates.data\",\r\n",
+					"#       \"count\": \"events.count + 1\"\r\n",
+					"#     }\r\n",
+					"#   ).whenNotMatchedInsert(values =\r\n",
+					"#     {\r\n",
+					"#       \"date\": \"updates.date\",\r\n",
+					"#       \"eventId\": \"updates.eventId\",\r\n",
+					"#       \"data\": \"updates.data\",\r\n",
+					"#       \"count\": \"1\"\r\n",
+					"#     }\r\n",
+					"#   ).execute()"
+				],
+				"attachments": null,
+				"execution_count": 1
+			}
+		]
+	}
+}

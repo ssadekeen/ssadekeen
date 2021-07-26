@@ -1,0 +1,130 @@
+{
+	"name": "CopyCRMdataInParquet",
+	"properties": {
+		"description": "Copy CRM database schema from oracle DB",
+		"activities": [
+			{
+				"name": "Get CRM Tables",
+				"description": "Get the list of the tables in CRM schema",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": true,
+					"secureInput": true
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "SELECT owner, table_name FROM all_tables WHERE OWNER = 'CRM' AND table_name NOT LIKE '%BACKUP%' ORDER BY NUM_ROWS ASC;",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"dataset": {
+						"referenceName": "CRMTableList",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "For Each Tables",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get CRM Tables",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get CRM Tables').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Export CRM tables",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "@{item().owner}.@{item().table_name}"
+								},
+								{
+									"name": "Destination",
+									"value": "whilfs/Perquest_Files/@{concat(item().owner,'.',item().table_name,'.parquet')}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "OracleSource",
+									"partitionOption": "None",
+									"queryTimeout": "02:00:00"
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings",
+										"maxConcurrentConnections": 4
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "CRMTables",
+									"type": "DatasetReference",
+									"parameters": {
+										"schema": {
+											"value": "@item().owner",
+											"type": "Expression"
+										},
+										"table_name": {
+											"value": "@item().table_name",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "CRMParquetFiles",
+									"type": "DatasetReference",
+									"parameters": {
+										"FileName": {
+											"value": "@concat(item().owner,'.',item().table_name,'.parquet')",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"folder": {
+			"name": "ParquetFormat"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-07-12T10:48:36Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

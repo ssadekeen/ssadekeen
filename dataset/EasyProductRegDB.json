@@ -1,0 +1,70 @@
+{
+	"name": "EasyProductRegDB",
+	"properties": {
+		"description": "Connect to your data source store.",
+		"linkedServiceName": {
+			"referenceName": "EasyRegDB",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"structure": [
+			{
+				"name": "UserLogingInfoId",
+				"type": "Int32"
+			},
+			{
+				"name": "userid",
+				"type": "String"
+			},
+			{
+				"name": "WebLink",
+				"type": "String"
+			},
+			{
+				"name": "PcName",
+				"type": "String"
+			},
+			{
+				"name": "MacAddress",
+				"type": "String"
+			},
+			{
+				"name": "IPAddress",
+				"type": "String"
+			},
+			{
+				"name": "DeviceType",
+				"type": "String"
+			},
+			{
+				"name": "ComId",
+				"type": "Int32"
+			},
+			{
+				"name": "LoginDate",
+				"type": "DateTime"
+			},
+			{
+				"name": "LoginTime",
+				"type": "DateTime"
+			},
+			{
+				"name": "Platform",
+				"type": "String"
+			},
+			{
+				"name": "WebBrowserName",
+				"type": "String"
+			},
+			{
+				"name": "Remarks",
+				"type": "String"
+			}
+		],
+		"typeProperties": {
+			"tableName": "[dbo].[UserLogingInfoes]"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

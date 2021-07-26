@@ -1,0 +1,13 @@
+{
+	"name": "ProductionDBTableList",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MySqlProductionDB",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "MySqlTable",
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

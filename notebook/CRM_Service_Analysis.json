@@ -1,0 +1,393 @@
+{
+	"name": "CRM_Service_Analysis",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "WHILASP",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1",
+				"state": {
+					"6cbe28d9-9ad4-4327-88f7-1c42f5e8c2f2": {
+						"type": "Synapse.DataFrame",
+						"sync_state": {
+							"table": {
+								"rows": [
+									{
+										"DealerMobileNo": "01300698177",
+										"Latitude": 22.5953,
+										"Longitude": 89.9898
+									},
+									{
+										"DealerMobileNo": "01310883467",
+										"Latitude": 22.5451,
+										"Longitude": 90.3176
+									},
+									{
+										"DealerMobileNo": "01311740302",
+										"Latitude": 24.7516,
+										"Longitude": 90.754
+									},
+									{
+										"DealerMobileNo": "01611347017",
+										"Latitude": 23.6603,
+										"Longitude": 90.3624
+									},
+									{
+										"DealerMobileNo": "01614293048",
+										"Latitude": 22.5411,
+										"Longitude": 90.3393
+									},
+									{
+										"DealerMobileNo": "01616159756",
+										"Latitude": 22.7849,
+										"Longitude": 90.1564
+									},
+									{
+										"DealerMobileNo": "01624925426",
+										"Latitude": 24.9399,
+										"Longitude": 90.6016
+									},
+									{
+										"DealerMobileNo": "01625111821",
+										"Latitude": 22.5467,
+										"Longitude": 90.6917
+									},
+									{
+										"DealerMobileNo": "01629041820",
+										"Latitude": 24.3644,
+										"Longitude": 90.711
+									},
+									{
+										"DealerMobileNo": "01631909026",
+										"Latitude": 23.0412,
+										"Longitude": 90.773
+									}
+								],
+								"schema": {
+									"DealerMobileNo": "string",
+									"Latitude": "double",
+									"Longitude": "double"
+								}
+							},
+							"isSummary": false,
+							"language": "scala"
+						},
+						"persist_state": {
+							"view": {
+								"type": "details",
+								"chartOptions": {
+									"chartType": "bar",
+									"aggregationType": "sum",
+									"categoryFieldKeys": [
+										"DealerMobileNo"
+									],
+									"seriesFieldKeys": [
+										"Latitude"
+									],
+									"isStacked": false
+								}
+							}
+						}
+					},
+					"d798c0bf-9e21-44af-ae00-06e84c567db8": {
+						"type": "Synapse.DataFrame",
+						"sync_state": {
+							"table": {
+								"rows": [
+									{
+										"ID": 209,
+										"ALKP_QUERY_ID": 1396,
+										"CUSTOMER_COMPLAIN_ID": 3078481,
+										"CREATED_BY": "32120",
+										"CATEGORY_TITLE": "Indoor_Outdoor_Satisfaction_Index",
+										"ANSWER_TEXT": "পুরোপুরি অবগত হয়েছি",
+										"ALKP_CATEGORY_ID": 1392,
+										"CREATED_DATE": "2020-12-21T00:00:00Z",
+										"ALKP_QUERY_TITLE": "পণ্যের ব্যবহার বিধি সর্ম্পকে অবগত আছেন কি?"
+									},
+									{
+										"ID": 210,
+										"ALKP_QUERY_ID": 1398,
+										"CUSTOMER_COMPLAIN_ID": 3078481,
+										"CREATED_BY": "32120",
+										"CATEGORY_TITLE": "Indoor_Outdoor_Satisfaction_Index",
+										"ALKP_CATEGORY_ID": 1392,
+										"CREATED_DATE": "2020-12-21T00:00:00Z",
+										"ALKP_QUERY_TITLE": "সার্ভিস / পণ্য আরো ভালো করার জন্য আপনার মতামত কি?"
+									},
+									{
+										"ID": 211,
+										"ALKP_QUERY_ID": 1394,
+										"CUSTOMER_COMPLAIN_ID": 3078481,
+										"CREATED_BY": "32120",
+										"CATEGORY_TITLE": "Indoor_Outdoor_Satisfaction_Index",
+										"ANSWER_TEXT": "খুব ভাল",
+										"ALKP_CATEGORY_ID": 1392,
+										"CREATED_DATE": "2020-12-21T00:00:00Z",
+										"ALKP_QUERY_TITLE": "পণ্যের গুনগত মান কেমন?"
+									},
+									{
+										"ID": 212,
+										"ALKP_QUERY_ID": 1395,
+										"CUSTOMER_COMPLAIN_ID": 3078481,
+										"CREATED_BY": "32120",
+										"CATEGORY_TITLE": "Indoor_Outdoor_Satisfaction_Index",
+										"ANSWER_TEXT": "খুব ভাল",
+										"ALKP_CATEGORY_ID": 1392,
+										"CREATED_DATE": "2020-12-21T00:00:00Z",
+										"ALKP_QUERY_TITLE": "প্রাপ্ত সার্ভিস এর গুনগত মান কেমন?"
+									},
+									{
+										"ID": 249,
+										"ALKP_QUERY_ID": 1395,
+										"CUSTOMER_COMPLAIN_ID": 3081248,
+										"CREATED_BY": "36088",
+										"CATEGORY_TITLE": "Indoor_Outdoor_Satisfaction_Index",
+										"ANSWER_TEXT": "সন্তোষজনক",
+										"ALKP_CATEGORY_ID": 1392,
+										"CREATED_DATE": "2020-12-22T00:00:00Z",
+										"ALKP_QUERY_TITLE": "প্রাপ্ত সার্ভিস এর গুনগত মান কেমন?"
+									},
+									{
+										"ID": 250,
+										"ALKP_QUERY_ID": 1394,
+										"CUSTOMER_COMPLAIN_ID": 3081248,
+										"CREATED_BY": "36088",
+										"CATEGORY_TITLE": "Indoor_Outdoor_Satisfaction_Index",
+										"ANSWER_TEXT": "সন্তোষজনক",
+										"ALKP_CATEGORY_ID": 1392,
+										"CREATED_DATE": "2020-12-22T00:00:00Z",
+										"ALKP_QUERY_TITLE": "পণ্যের গুনগত মান কেমন?"
+									},
+									{
+										"ID": 207,
+										"ALKP_QUERY_ID": 1397,
+										"CUSTOMER_COMPLAIN_ID": 3078481,
+										"CREATED_BY": "32120",
+										"CATEGORY_TITLE": "Indoor_Outdoor_Satisfaction_Index",
+										"ANSWER_TEXT": "হ্যাঁ",
+										"ALKP_CATEGORY_ID": 1392,
+										"CREATED_DATE": "2020-12-21T00:00:00Z",
+										"ALKP_QUERY_TITLE": "আপনি কি অন্যকে ওয়ালটন পণ্য ব্যবহার করতে উৎসাহিত করবেন?"
+									},
+									{
+										"ID": 208,
+										"ALKP_QUERY_ID": 1393,
+										"CUSTOMER_COMPLAIN_ID": 3078481,
+										"CREATED_BY": "32120",
+										"CATEGORY_TITLE": "Indoor_Outdoor_Satisfaction_Index",
+										"ANSWER_TEXT": "খুব ভাল",
+										"ALKP_CATEGORY_ID": 1392,
+										"CREATED_DATE": "2020-12-21T00:00:00Z",
+										"ALKP_QUERY_TITLE": "সার্ভিস এক্সপার্ট এর ব্যবহার কেমন?"
+									},
+									{
+										"ID": 251,
+										"ALKP_QUERY_ID": 1393,
+										"CUSTOMER_COMPLAIN_ID": 3081248,
+										"CREATED_BY": "36088",
+										"CATEGORY_TITLE": "Indoor_Outdoor_Satisfaction_Index",
+										"ANSWER_TEXT": "ভাল",
+										"ALKP_CATEGORY_ID": 1392,
+										"CREATED_DATE": "2020-12-22T00:00:00Z",
+										"ALKP_QUERY_TITLE": "সার্ভিস এক্সপার্ট এর ব্যবহার কেমন?"
+									},
+									{
+										"ID": 252,
+										"ALKP_QUERY_ID": 1397,
+										"CUSTOMER_COMPLAIN_ID": 3081248,
+										"CREATED_BY": "36088",
+										"CATEGORY_TITLE": "Indoor_Outdoor_Satisfaction_Index",
+										"ANSWER_TEXT": "হ্যাঁ",
+										"ALKP_CATEGORY_ID": 1392,
+										"CREATED_DATE": "2020-12-22T00:00:00Z",
+										"ALKP_QUERY_TITLE": "আপনি কি অন্যকে ওয়ালটন পণ্য ব্যবহার করতে উৎসাহিত করবেন?"
+									}
+								],
+								"schema": {
+									"ID": "decimal",
+									"CREATED_DATE": "int",
+									"MODIFIED_BY": "string",
+									"ALKP_CATEGORY_ID": "decimal",
+									"ALKP_QUERY_TITLE": "string",
+									"CREATED_BY": "string",
+									"CATEGORY_TITLE": "string",
+									"CUSTOMER_COMPLAIN_ID": "decimal",
+									"MODIFIED_DATE": "int",
+									"ANSWER_TEXT": "string",
+									"ALKP_QUERY_ID": "decimal"
+								}
+							},
+							"isSummary": false,
+							"language": "scala"
+						},
+						"persist_state": {
+							"view": {
+								"type": "details",
+								"chartOptions": {
+									"chartType": "bar",
+									"aggregationType": "sum",
+									"categoryFieldKeys": [
+										"CREATED_DATE"
+									],
+									"seriesFieldKeys": [
+										"ID"
+									],
+									"isStacked": false
+								}
+							}
+						}
+					}
+				}
+			},
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/5a2180f1-3f1d-46b5-880a-c82f25797121/resourceGroups/WHIL-Syapse/providers/Microsoft.Synapse/workspaces/wp01/bigDataPools/WHILASP",
+				"name": "WHILASP",
+				"type": "Spark",
+				"endpoint": "https://wp01.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/WHILASP",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "2.4",
+				"nodeCount": 10,
+				"cores": 4,
+				"memory": 28,
+				"extraHeader": null
+			}
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"microsoft": {
+						"language": "python"
+					},
+					"collapsed": false
+				},
+				"source": [
+					"%%pyspark\n",
+					"blob_account_name = \"whillake\"\n",
+					"blob_container_name = \"whilfs\"\n",
+					"from pyspark.sql import SparkSession\n",
+					"\n",
+					"sc = SparkSession.builder.getOrCreate()\n",
+					"token_library = sc._jvm.com.microsoft.azure.synapse.tokenlibrary.TokenLibrary\n",
+					"blob_sas_token = token_library.getConnectionString(\"CRMBlobStorage\")\n",
+					"\n",
+					"spark.conf.set(\n",
+					"    'fs.azure.sas.%s.%s.blob.core.windows.net' % (blob_container_name, blob_account_name),\n",
+					"    blob_sas_token)\n",
+					"df = spark.read.load('wasbs://whilfs@whillake.blob.core.windows.net/OnlieProductRegistration/dboDealer_Location.json', format='json')\n",
+					"display(df.limit(10))"
+				],
+				"attachments": null,
+				"execution_count": 1
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					"df_crm_jobs=spark.read.load('wasbs://whilfs@whillake.blob.core.windows.net/Perquest_Files/CRM.CUSTOMER_SATISFACTION.parquet',format=\"parquet\")"
+				],
+				"attachments": null,
+				"execution_count": 15
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					"display(df_crm_jobs.limit(10))"
+				],
+				"attachments": null,
+				"execution_count": 16
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					"from pyspark.sql import SparkSession"
+				],
+				"attachments": null,
+				"execution_count": 1
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"jupyter": {
+						"source_hidden": false,
+						"outputs_hidden": false
+					},
+					"nteract": {
+						"transient": {
+							"deleting": false
+						}
+					},
+					"collapsed": true
+				},
+				"source": [
+					""
+				],
+				"attachments": null,
+				"execution_count": null
+			}
+		]
+	}
+}

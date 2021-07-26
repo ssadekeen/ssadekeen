@@ -1,0 +1,248 @@
+{
+	"name": "CopyLogisticData",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_i5i",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_i5i",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "@{item().source.tableName}"
+								},
+								{
+									"name": "Destination",
+									"value": "whilfs/Perquest_Files/@{item().destination.fileName}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "MySqlSource"
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false,
+								"enableSkipIncompatibleRow": true,
+								"validateDataConsistency": true
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_i5i",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_tableName": "@item().source.tableName"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_i5i",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_fileName": "@item().destination.fileName"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"tableName": "`audit_vehicle_entrance`"
+						},
+						"destination": {
+							"fileName": "ldpm.audit_vehicle_entrance.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`customers`"
+						},
+						"destination": {
+							"fileName": "ldpm.customers.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`dp_target_set`"
+						},
+						"destination": {
+							"fileName": "ldpm.dp_target_set.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`gate_setup`"
+						},
+						"destination": {
+							"fileName": "ldpm.gate_setup.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`mix_label`"
+						},
+						"destination": {
+							"fileName": "ldpm.mix_label.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`module_label`"
+						},
+						"destination": {
+							"fileName": "ldpm.module_label.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`module`"
+						},
+						"destination": {
+							"fileName": "ldpm.module.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`requisition_many_customers`"
+						},
+						"destination": {
+							"fileName": "ldpm.requisition_many_customers.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`role`"
+						},
+						"destination": {
+							"fileName": "ldpm.role.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`slip_details`"
+						},
+						"destination": {
+							"fileName": "ldpm.slip_details.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`slip_transaction`"
+						},
+						"destination": {
+							"fileName": "ldpm.slip_transaction.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`token_genarate`"
+						},
+						"destination": {
+							"fileName": "ldpm.token_genarate.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`users`"
+						},
+						"destination": {
+							"fileName": "ldpm.users.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`vehicle_entrance`"
+						},
+						"destination": {
+							"fileName": "ldpm.vehicle_entrance.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`vehicle_owners`"
+						},
+						"destination": {
+							"fileName": "ldpm.vehicle_owners.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`vehicle_register`"
+						},
+						"destination": {
+							"fileName": "ldpm.vehicle_register.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`vehicle_registration_comments`"
+						},
+						"destination": {
+							"fileName": "ldpm.vehicle_registration_comments.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`vehicle_requisition`"
+						},
+						"destination": {
+							"fileName": "ldpm.vehicle_requisition.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`vehicle_wise_product_qnt`"
+						},
+						"destination": {
+							"fileName": "ldpm.vehicle_wise_product_qnt.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`vehicles_base_info`"
+						},
+						"destination": {
+							"fileName": "ldpm.vehicles_base_info.parquet"
+						}
+					}
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-07-25T13:25:57Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

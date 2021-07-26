@@ -1,0 +1,98 @@
+{
+	"name": "DeltaCopyCRMData",
+	"properties": {
+		"activities": [
+			{
+				"name": "CRM TableList",
+				"description": "Get the list of CRM Tables",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select col.owner as schema_name,\n       col.table_name, \n       col.column_name AS Data_Source_WaterMarkColumn\n      from sys.all_tab_columns col\nWHERE col.owner = 'CRM' AND col.column_name \nIN ('MODIFIED_DATE', 'LAST_UPDATE') UNION\n(select owner as schema_name,\n       table_name, \n       column_name AS Data_Source_WaterMarkColumn\nfrom sys.all_tab_columns\nWHERE TABLE_NAME NOT IN (\nselect col.table_name\nfrom sys.all_tab_columns col\nWHERE col.owner = 'CRM' AND col.column_name \nIN ('MODIFIED_DATE', 'LAST_UPDATE')) \nAND owner = 'CRM' \n--AND DATA_TYPE NOT LIKE ('DATE','TIMESTAMP(6)')\nAND column_name IN ('ACTIVE_END_DATE', 'ACTIVE_END_DATE', 'ACTIVE_END_DATE', 'CREATED_DATE', 'ACTIVE_END_DATE', 'SEND_DATE'))",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"dataset": {
+						"referenceName": "CRMTableList",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "For Each CRM Table",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "CRM TableList",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('CRM TableList').output.value",
+						"type": "Expression"
+					},
+					"isSequential": false,
+					"activities": [
+						{
+							"name": "DeltaCopy_DB_using_ControlTable",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "DeltaCopy_DB_using_ControlTable",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true,
+								"parameters": {
+									"Data_Source_Table_Name": {
+										"value": "@item().Table_Name",
+										"type": "Expression"
+									},
+									"Data_Source_WaterMarkColumn": {
+										"value": "@item().Data_Source_WaterMarkColumn",
+										"type": "Expression"
+									},
+									"Data_Destination_Container": "whilfs",
+									"Data_Destination_Directory": "Perquest_Files",
+									"Control_Table_Table_Name": "watermarktable",
+									"Control_Table_Column_Name": "WatermarkValue",
+									"Data_Source_Schema": {
+										"value": "@item().Schema_Name",
+										"type": "Expression"
+									},
+									"DBHost": "192.168.150.5",
+									"DBPort": "1521",
+									"DBServiceName": "hrpos",
+									"DBUser": "SHIBLEE",
+									"DBPassword": "RJq9bq"
+								}
+							}
+						}
+					]
+				}
+			}
+		],
+		"folder": {
+			"name": "ParquetFormat/DeltaCopy"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-07-12T16:05:55Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

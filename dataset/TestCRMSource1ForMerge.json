@@ -1,0 +1,88 @@
+{
+	"name": "TestCRMSource1ForMerge",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CRMBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "TestDataSets_TobeDeleted_Later"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "CRM.ACL_USER.parquet",
+				"folderPath": "Perquest_Files",
+				"container": "whilfs"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "ID",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "CREATED_DATE",
+				"type": "INT96"
+			},
+			{
+				"name": "MODIFIED_BY",
+				"type": "UTF8"
+			},
+			{
+				"name": "PASSWORD_EXPIRED",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "USERNAME",
+				"type": "UTF8"
+			},
+			{
+				"name": "ACCOUNT_LOCKED",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "PASSWD",
+				"type": "UTF8"
+			},
+			{
+				"name": "CREATED_BY",
+				"type": "UTF8"
+			},
+			{
+				"name": "ACCOUNT_EXPIRED",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "ENABLED",
+				"type": "DECIMAL",
+				"precision": 38,
+				"scale": 18
+			},
+			{
+				"name": "MODIFIED_DATE",
+				"type": "INT96"
+			},
+			{
+				"name": "FULL_NAME",
+				"type": "UTF8"
+			},
+			{
+				"name": "SUB_SECTION",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,298 @@
+{
+	"name": "CopyDigitalServiceInitial",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_1rh",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_1rh",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "@{item().source.tableName}"
+								},
+								{
+									"name": "Destination",
+									"value": "whilfs/Perquest_Files/@{item().destination.fileName}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "SqlServerSource",
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false,
+								"enableSkipIncompatibleRow": true,
+								"validateDataConsistency": true
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_61x",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_1rh",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_fileName": "@item().destination.fileName"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"tableName": "`audittbl_gr_user_access`"
+						},
+						"destination": {
+							"fileName": "web_wbs.audittbl_gr_user_access.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`audittbl_registration`"
+						},
+						"destination": {
+							"fileName": "web_wbs.audittbl_registration.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`connection_list`"
+						},
+						"destination": {
+							"fileName": "web_wbs.connection_list.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`default_module_header`"
+						},
+						"destination": {
+							"fileName": "web_wbs.default_module_header.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`emp_info_project`"
+						},
+						"destination": {
+							"fileName": "web_wbs.emp_info_project.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`global_catagory`"
+						},
+						"destination": {
+							"fileName": "web_wbs.global_catagory.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`gr_developer_access`"
+						},
+						"destination": {
+							"fileName": "web_wbs.gr_developer_access.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`gr_report_access`"
+						},
+						"destination": {
+							"fileName": "web_wbs.gr_report_access.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`gr_user_access2`"
+						},
+						"destination": {
+							"fileName": "web_wbs.gr_user_access2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`gr_user_access`"
+						},
+						"destination": {
+							"fileName": "web_wbs.gr_user_access.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`ip_list`"
+						},
+						"destination": {
+							"fileName": "web_wbs.ip_list.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`master_data`"
+						},
+						"destination": {
+							"fileName": "web_wbs.master_data.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`modulewise_header`"
+						},
+						"destination": {
+							"fileName": "web_wbs.modulewise_header.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`modulewise_report`"
+						},
+						"destination": {
+							"fileName": "web_wbs.modulewise_report.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`modulewise_user_access`"
+						},
+						"destination": {
+							"fileName": "web_wbs.modulewise_user_access.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`more_registration`"
+						},
+						"destination": {
+							"fileName": "web_wbs.more_registration.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`my_report_header`"
+						},
+						"destination": {
+							"fileName": "web_wbs.my_report_header.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`my_report`"
+						},
+						"destination": {
+							"fileName": "web_wbs.my_report.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`registration2`"
+						},
+						"destination": {
+							"fileName": "web_wbs.registration2.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`registration3`"
+						},
+						"destination": {
+							"fileName": "web_wbs.registration3.parquet`"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`registration4`"
+						},
+						"destination": {
+							"fileName": "web_wbs.registration4.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`registration`"
+						},
+						"destination": {
+							"fileName": "web_wbs.registration.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`report_log_time`"
+						},
+						"destination": {
+							"fileName": "web_wbs.report_log_time.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`report_setup`"
+						},
+						"destination": {
+							"fileName": "web_wbs.report_setup.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`report_transaction`"
+						},
+						"destination": {
+							"fileName": "web_wbs.report_transaction.parquet"
+						}
+					},
+					{
+						"source": {
+							"tableName": "`report`"
+						},
+						"destination": {
+							"fileName": "web_wbs.report.parquet"
+						}
+					}
+				]
+			}
+		},
+		"folder": {
+			"name": "ParquetFormat"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-07-18T12:00:50Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

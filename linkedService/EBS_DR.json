@@ -1,0 +1,17 @@
+{
+	"name": "EBS_DR",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"description": "EBS DR 192.168.100.157",
+		"annotations": [],
+		"type": "Oracle",
+		"typeProperties": {
+			"connectionString": "host=192.168.150.46;port=1521;servicename=PROD;user id=APPSWG",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIzODk1Y2YzZC1kMmFlLTQ4NTgtODcyNy1lNTJlY2QxNmQxYTEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "Node-2-123",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

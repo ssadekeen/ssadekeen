@@ -1,0 +1,32 @@
+{
+	"name": "DS_ADSL2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "DeltaLake",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"FolderName": {
+				"type": "string"
+			},
+			"FileName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "TestDataSets_TobeDeleted_Later"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "DeltaLake/Raw",
+				"container": "whilfs"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

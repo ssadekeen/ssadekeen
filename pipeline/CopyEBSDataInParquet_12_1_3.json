@@ -1,0 +1,155 @@
+{
+	"name": "CopyEBSDataInParquet_12_1_3",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get Table List",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "SELECT owner, table_name, NUM_ROWS FROM SYS.ALL_TABLES WHERE (OWNER = 'INV' OR  OWNER = 'ONT') AND NUM_ROWS > 0 ORDER BY NUM_ROWS ASC;",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"dataset": {
+						"referenceName": "OLD_EBS_TableList",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "For each table",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get Table List",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Table List').output.value",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "export table data",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "@{item().OWNER}.@{item().TABLE_NAME}"
+								},
+								{
+									"name": "Destination",
+									"value": "whilfs/Perquest_Files/EBS_12_2_5/@{concat(item().OWNER,'.',item().TABLE_NAME,'.parquet')}"
+								},
+								{
+									"name": "SourceRowCount",
+									"value": "@{item().NUM_ROWS}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "OracleSource",
+									"partitionOption": "PhysicalPartitionsOfTable",
+									"partitionSettings": {
+										"partitionNames": []
+									},
+									"queryTimeout": "02:00:00"
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false,
+								"enableSkipIncompatibleRow": true,
+								"validateDataConsistency": true,
+								"logSettings": {
+									"enableCopyActivityLog": true,
+									"copyActivityLogSettings": {
+										"logLevel": "Warning",
+										"enableReliableLogging": false
+									},
+									"logLocationSettings": {
+										"linkedServiceName": {
+											"referenceName": "wp01-WorkspaceDefaultStorage",
+											"type": "LinkedServiceReference"
+										},
+										"path": "whilfs/PipelineLog"
+									}
+								},
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "OldEBSTableSet1",
+									"type": "DatasetReference",
+									"parameters": {
+										"Schema": {
+											"value": "@item().OWNER",
+											"type": "Expression"
+										},
+										"TableName": {
+											"value": "@item().Table_Name",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "Old_EBSPerquestSet1",
+									"type": "DatasetReference",
+									"parameters": {
+										"FileName": {
+											"value": "@concat(item().OWNER,'.',item().TABLE_NAME,'.parquet')",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2021-07-26T06:59:18Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

@@ -1,0 +1,32 @@
+{
+	"name": "CRM_Nightly_Synch",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "DeltaCopyCRMData",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2021-07-12T08:58:00",
+				"timeZone": "Bangladesh Standard Time",
+				"schedule": {
+					"minutes": [
+						15
+					],
+					"hours": [
+						22
+					]
+				}
+			}
+		}
+	}
+}

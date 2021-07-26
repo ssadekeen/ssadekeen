@@ -1,0 +1,32 @@
+{
+	"name": "Nightly_EBS_Set1_Synchup",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "DeltaCopyEBSDataSet1",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2021-07-11T16:00:00",
+				"timeZone": "Bangladesh Standard Time",
+				"schedule": {
+					"minutes": [
+						40
+					],
+					"hours": [
+						22
+					]
+				}
+			}
+		}
+	}
+}

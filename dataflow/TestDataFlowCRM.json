@@ -1,0 +1,51 @@
+{
+	"name": "TestDataFlowCRM",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "TestCRMSource1ForMerge",
+						"type": "DatasetReference"
+					},
+					"name": "CRMMain"
+				},
+				{
+					"dataset": {
+						"referenceName": "TestCRMSourceDeltaForMerge",
+						"type": "DatasetReference"
+					},
+					"name": "CRMDelta"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "CRM_Test_Merged",
+						"type": "DatasetReference"
+					},
+					"name": "UpdatedFile"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Union1"
+				},
+				{
+					"name": "SurrogateKey"
+				},
+				{
+					"name": "Distinct"
+				},
+				{
+					"name": "OriginalData"
+				},
+				{
+					"name": "Rejoin"
+				}
+			],
+			"script": "source(output(\n\t\tID as decimal(38,18),\n\t\tCREATED_DATE as timestamp,\n\t\tMODIFIED_BY as string,\n\t\tPASSWORD_EXPIRED as decimal(38,18),\n\t\tUSERNAME as string,\n\t\tACCOUNT_LOCKED as decimal(38,18),\n\t\tPASSWD as string,\n\t\tCREATED_BY as string,\n\t\tACCOUNT_EXPIRED as decimal(38,18),\n\t\tENABLED as decimal(38,18),\n\t\tMODIFIED_DATE as timestamp,\n\t\tFULL_NAME as string,\n\t\tSUB_SECTION as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: true,\n\tinferDriftedColumnTypes: true,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet',\n\tpartitionBy('hash', 4,\n\t\tID\n\t)) ~> CRMMain\nsource(output(\n\t\tID as decimal(38,18),\n\t\tCREATED_DATE as timestamp,\n\t\tMODIFIED_BY as string,\n\t\tPASSWORD_EXPIRED as decimal(38,18),\n\t\tUSERNAME as string,\n\t\tACCOUNT_LOCKED as decimal(38,18),\n\t\tPASSWD as string,\n\t\tCREATED_BY as string,\n\t\tACCOUNT_EXPIRED as decimal(38,18),\n\t\tENABLED as decimal(38,18),\n\t\tMODIFIED_DATE as timestamp,\n\t\tFULL_NAME as string,\n\t\tSUB_SECTION as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: true,\n\tinferDriftedColumnTypes: true,\n\tignoreNoFilesFound: true,\n\tformat: 'parquet') ~> CRMDelta\nCRMMain, CRMDelta union(byName: false)~> Union1\nUnion1 keyGenerate(output(SurrogateKey as long),\n\tstartAt: 1L) ~> SurrogateKey\nSurrogateKey aggregate(groupBy(ID),\n\tWinner = last(SurrogateKey)) ~> Distinct\nSurrogateKey select(mapColumn(\n\t\tID,\n\t\tCREATED_DATE,\n\t\tMODIFIED_BY,\n\t\tPASSWORD_EXPIRED,\n\t\tUSERNAME,\n\t\tACCOUNT_LOCKED,\n\t\tPASSWD,\n\t\tCREATED_BY,\n\t\tACCOUNT_EXPIRED,\n\t\tENABLED,\n\t\tMODIFIED_DATE,\n\t\tFULL_NAME,\n\t\tSUB_SECTION,\n\t\tSurrogateKey\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> OriginalData\nDistinct, OriginalData join(Winner == SurrogateKey,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Rejoin\nRejoin sink(allowSchemaDrift: true,\n\tvalidateSchema: true,\n\tformat: 'parquet',\n\tpartitionFileNames:['CRM.ACCESSORIES_merged.parquet'],\n\ttruncate: true,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 1,\n\tpartitionBy('hash', 1)) ~> UpdatedFile"
+		}
+	}
+}

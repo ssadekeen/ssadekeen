@@ -1,0 +1,38 @@
+{
+	"name": "Pipeline 1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Data flow1",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "TestDataFlowCRM",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "MemoryOptimized"
+					},
+					"traceLevel": "Fine",
+					"runConcurrently": true
+				}
+			}
+		],
+		"folder": {
+			"name": "TestPipelines_ToBeDeletedLater"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-07-15T07:19:57Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

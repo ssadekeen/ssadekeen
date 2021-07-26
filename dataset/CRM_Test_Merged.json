@@ -1,0 +1,24 @@
+{
+	"name": "CRM_Test_Merged",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CRMBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "TestDataSets_TobeDeleted_Later"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "Perquest_Files",
+				"container": "whilfs"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

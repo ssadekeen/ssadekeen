@@ -1,0 +1,13 @@
+{
+	"name": "ProductionQCTableList",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MySQLProductionQC",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "MySqlTable",
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

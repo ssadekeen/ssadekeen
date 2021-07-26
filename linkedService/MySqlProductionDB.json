@@ -1,0 +1,17 @@
+{
+	"name": "MySqlProductionDB",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"description": "Connect to Production Database - MySQL - report_wbst",
+		"annotations": [],
+		"type": "MySql",
+		"typeProperties": {
+			"connectionString": "server=192.168.200.15;port=3306;database=report_wbst;user=warhouse;sslmode=1;usesystemtruststore=0",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI3MTIyMjhiNy1lYWNjLTRjZWUtOTFlMS00OWM4YzAwOWY4ODkiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "NodeNoman",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

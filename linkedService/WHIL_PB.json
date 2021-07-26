@@ -1,0 +1,12 @@
+{
+	"name": "WHIL_PB",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"description": "WHIL Power BI",
+		"annotations": [],
+		"type": "PowerBIWorkspace",
+		"typeProperties": {
+			"tenantID": "1e5a0dcb-3f3c-4913-8c41-e714ed380c25"
+		}
+	}
+}

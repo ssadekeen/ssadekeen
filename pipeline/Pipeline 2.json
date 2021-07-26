@@ -1,0 +1,38 @@
+{
+	"name": "Pipeline 2",
+	"properties": {
+		"activities": [
+			{
+				"name": "ConvertParquetToDelta",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": true,
+					"secureInput": true
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "Dataflow1",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "MemoryOptimized"
+					},
+					"traceLevel": "Fine",
+					"runConcurrently": true
+				}
+			}
+		],
+		"folder": {
+			"name": "TestPipelines_ToBeDeletedLater"
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-07-15T07:20:00Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}
